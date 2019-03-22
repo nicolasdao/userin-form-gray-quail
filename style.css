@@ -1,0 +1,304 @@
+/*body {
+	background-color: #e2e2e2;
+	
+}*/
+/* Change Autocomplete styles in Chrome*/
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus
+input:-webkit-autofill, 
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+	-webkit-box-shadow: 0 0 0px 1000px #f1e7c6 inset;
+	transition: background-color 5000s ease-in-out 0s;
+}
+#main {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+}
+.userin-dark-background {
+	position: fixed;
+	padding: 0;
+	margin: 0;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(29, 29, 29, 0.43);
+	visibility: hidden;
+	z-index: 9999;
+}
+.userin-form-box {
+	z-index: 10000;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	background-color: #f9f9f9;
+	width: 410px;
+	border-radius: 10px;
+	box-shadow: 1px 18px 46px #636363d6;
+	margin-bottom: 80px;
+	visibility: hidden;
+	font-family: 'Helvetica Neue', Helvetica, 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', メイリオ, Meiryo, 'ＭＳ Ｐゴシック', arial,sans-serif;
+}
+.userin-form-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+.userin-close-button {
+	width: 100%
+}
+.userin-close-button svg {
+	position: relative;
+	padding-top: 14px;
+	margin: auto;
+	width: 185%;
+}
+.userin-close-button svg path {
+	fill: #404040;
+}
+.userin-close-button svg g:hover path {
+	fill: #FFFFFF;
+}
+.userin-close-button svg g:hover circle {
+	fill: #d3132a;
+}
+.userin-logo {
+	width: 50%;
+	margin: auto;
+	display: block;
+	padding-bottom: 4px;
+}
+.userin-logo img {
+	width: 60%;
+	margin: auto;
+	display: block;
+}
+.userin-title {}
+.userin-welcome-message {
+	text-align: center;
+	font-weight: bold;
+	font-size: 32px;
+	color: #404040;
+	line-height: 41px;
+	padding-bottom: 3px;
+}
+.userin-blurb {
+	text-align: center;
+	font-weight: 400;
+	font-size: 17px;
+	color: #989898;
+	padding-bottom: 5px;
+	letter-spacing: -0.4px;
+}
+#userin-login-footer div a {
+	display:block;
+	text-align: center;
+}
+.userin-login-form-show,
+.userin-login-title-show,
+.userin-login-footer-show,
+.userin-signup-form-show,
+.userin-signup-title-show,
+.userin-signup-footer-show
+ {
+	display: block;
+}
+.userin-login-form-hide,
+.userin-login-title-hide,
+.userin-login-footer-hide,
+.userin-signup-form-hide,
+.userin-signup-title-hide,
+.userin-signup-footer-hide {
+	display: none;
+}
+.userin-email-form {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin-top: 15px;
+}
+.userin-input-form {
+	height: 35px;
+	border-radius: 3px;
+	border-width: 0px;
+	background-color: #e4e4e4;
+	margin-top: 8px;
+	font-family: 'Helvetica Neue', Helvetica, 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', メイリオ, Meiryo, 'ＭＳ Ｐゴシック', arial,sans-serif;
+	font-weight: bold;
+	font-size: 13px;
+	color: #313131;
+	padding-left: 10px;
+	width: 300px;
+}
+input[name="password"] {
+	-webkit-text-security: disc;
+}
+input:focus, textarea:focus, select:focus {
+	outline: none;
+}
+.userin-login-button {
+	height: 42px;
+	border-radius: 3px;
+	border-width: 0px;
+	background-color: #bd081c;
+	margin-top: 14px;
+	font-family: 'Helvetica Neue', Helvetica, 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', メイリオ, Meiryo, 'ＭＳ Ｐゴシック', arial,sans-serif;
+	font-weight: 500;
+	font-size: 13px;
+	letter-spacing: 0.4px;
+	color: #ffffff;
+	padding-left: 10px;
+}
+.userin-login-button:hover {
+	background-color: #D3132A;
+	cursor: pointer;
+}
+p.or {
+	text-align: center;
+	font-weight: bold;
+	font-size: 13px;
+	color: #404040;
+	line-height: 22px;
+}
+.userin-social-button {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+.userin-social-button:hover {
+	cursor: pointer;
+}
+.userin-social-button svg {
+	flex: 1;
+}
+.userin-social-button .userin-button-msg {
+	flex: 5;
+	min-width: 200px;
+}
+.userin-social-button div {
+	flex: 1;
+	padding-left: 47px;
+}
+.userin-idp-button  {
+	height: 42px;
+	border-radius: 3px;
+	border-width: 0px;
+	font-family: 'Helvetica Neue', Helvetica, 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', メイリオ, Meiryo, 'ＭＳ Ｐゴシック', arial,sans-serif;
+	font-weight: 500;
+	font-size: 13px;
+	color: #ffffff;
+	margin-bottom: 6px;
+	letter-spacing: 0.4px;
+	width: 311px;
+}
+.userin-button-msg {
+	text-align: left;
+	padding-left: 10px;
+}
+.userin-social-media-logo-container {
+	display: flex;
+	justify-content: center;
+}
+.userin-social-media-logo {
+	height: 27px;
+	width: 27px;
+}
+.userin-form-button {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin-bottom: 3px;
+	width: 311px;
+}
+.userin-social-media-logo-background {
+	display: flex;
+	align-items: center;
+	height: 28px;
+	width: 28px;
+	background-color: #ffffff;
+	border-radius: 2px;
+}
+.userin-facebook-button:hover {
+	background-color: #224fa9;
+}
+.userin-facebook-button {
+	background-color: #4468B0;
+}
+.userin-google-button:hover {
+	background-color: #2475f5;
+}
+.userin-google-button {
+	background-color: #4688f1;
+}
+.userin-linkedin-button:hover {
+	background-color: #006ca5;
+}
+.userin-linkedin-button {
+	background-color: #0077b5;
+}
+.userin-github-button:hover {
+	background-color: #313030;
+}
+.userin-github-button {
+	background-color: #424242;
+}
+.userin-twitter-button:hover {
+	background-color: #1588e2;
+}
+.userin-twitter-button {
+	background-color: #38A1F3;
+}
+.userin-terms {
+	width: 260px;
+	font-size: 11px;
+	color: #989898;
+	text-align: center;
+	margin: 6px 0px 14px 0px;
+	line-height: 15px;
+}
+.userin-terms a {
+	font-weight: 500;
+	color: #6f6f6f;
+	text-decoration:none;
+}
+.userin-terms a:hover {
+	color: #404040;
+	text-decoration:none;
+}
+.userin-horizontal-line {
+	border: 0.2px solid #dedede;
+    width: 100px;
+    margin: auto;
+    margin-top: 7px;
+    margin-bottom: 5px;
+}
+.userin-forgot-password a,
+.userin-signup a {
+	font-weight: 500;
+    color: #6f6f6f;
+    text-decoration: none;
+    font-size: 13px;
+}
+.userin-forgot-password a:hover,
+.userin-signup a:hover {
+    color: #404040;
+    text-decoration: underline;
+}
+.userin-error-form-message {
+	width: 300px;
+	margin-top: 10px;
+	color: red;
+	font-size: 12px;
+}
+.userin-footer {
+	height: 25px
+}

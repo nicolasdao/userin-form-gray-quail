@@ -1,0 +1,47 @@
+{
+  "name": "userin-form-gray-quail",
+  "version": "0.0.1",
+  "description": "Configurable JS form widget that uses the UserIn middleware to login to Apps using popular Identity Providers such as Facebook, Google, LinkedIn, GitHub, ...",
+  "main": "dist/index.min.js",
+  "unpkg": "dist/index.min.js",
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nicolasdao/userin-form-gray-quail.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nicolasdao/userin-form-gray-quail/issues"
+  },
+  "homepage": "https://github.com/nicolasdao/userin-form-gray-quail#readme",
+  "scripts": {
+    "build": "WEBPACK_ENV=dev webpack && WEBPACK_ENV=build webpack && node src/scripts/minifyCss.js",
+    "dev": "NODE_ENV=dev node-dev server.js",
+    "lint": "eslint index.js src/ test/ --fix",
+    "push": "git push --follow-tags origin master",
+    "rls": "standard-version --release-as",
+    "start": "NODE_ENV=production node index.js",
+    "test": "mocha",
+    "v": "node -e \"console.log(require('./package.json').version)\""
+  },
+  "author": "Nicolas Dao",
+  "license": "BSD-3-Clause",
+  "devDependencies": {
+    "babel-core": "6.25.0",
+    "babel-loader": "7.0.0",
+    "babel-plugin-transform-runtime": "6.23.0",
+    "babel-polyfill": "6.23.0",
+    "babel-preset-es2015": "6.24.1",
+    "babel-runtime": "6.23.0",
+    "chai": "^4.1.2",
+    "express": "^4.16.4",
+    "eslint": "^4.19.1",
+    "mocha": "^5.2.0",
+    "node-dev": "^3.1.3",
+    "standard-version": "^4.4.0",
+    "uglifycss": "0.0.29",
+    "uglifyjs-webpack-plugin": "0.4.6",
+    "webpack": "2.6.1"
+  }
+}
