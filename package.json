@@ -16,7 +16,7 @@
   },
   "homepage": "https://github.com/nicolasdao/userin-form-gray-quail#readme",
   "scripts": {
-    "build": "WEBPACK_ENV=dev webpack && WEBPACK_ENV=build webpack && node src/scripts/minifyCss.js",
+    "build": "WEBPACK_ENV=dev webpack && WEBPACK_ENV=build webpack && node minifyCss.js",
     "dev": "NODE_ENV=dev node-dev server.js",
     "lint": "eslint index.js src/ test/ --fix",
     "push": "git push --follow-tags origin master",
@@ -43,5 +43,8 @@
     "uglifycss": "0.0.29",
     "uglifyjs-webpack-plugin": "0.4.6",
     "webpack": "2.6.1"
+  },
+  "dependencies": {
+    "cors": "^2.8.5"
   }
 }

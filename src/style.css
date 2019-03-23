@@ -78,9 +78,10 @@ select:-webkit-autofill:focus {
 	padding-bottom: 4px;
 }
 .userin-logo img {
-	width: 60%;
+	width: 63%;
 	margin: auto;
 	display: block;
+	margin-top: -22px;
 }
 .userin-title {}
 .userin-welcome-message {
@@ -275,7 +276,7 @@ p.or {
 	text-decoration:none;
 }
 .userin-horizontal-line {
-	border: 0.2px solid #dedede;
+	border: 0.5px solid #dedede;
     width: 100px;
     margin: auto;
     margin-top: 7px;
@@ -296,7 +297,7 @@ p.or {
 .userin-error-form-message {
 	width: 300px;
 	margin-top: 10px;
-	color: red;
+	color: #ff8703;
 	font-size: 12px;
 }
 .userin-footer {

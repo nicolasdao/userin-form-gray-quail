@@ -2,9 +2,9 @@ const uglifycss = require('uglifycss')
 const { join } = require('path')
 const fs = require('fs')
 
-const CSS_PATH = join(__dirname, '../../style.css')
-const CSS_DEST = join(__dirname, '../../dist/style.css')
-const CSS_MIN_DEST = join(__dirname, '../../dist/style.min.css')
+const CSS_PATH = join(__dirname, './src/style.css')
+const CSS_DEST = join(__dirname, './dist/style.css')
+const CSS_MIN_DEST = join(__dirname, './dist/style.min.css')
 
 const uglified = uglifycss.processFiles([ CSS_PATH ])
 

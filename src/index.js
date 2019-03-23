@@ -53,7 +53,15 @@ function UserInForm(config) {
 
 	const createComponent = config => {
 		config = config || {}
-		const { logo, tagline, blurb, terms, privacyPolicy, forgotPassword, defaultMode } = config
+		if (!config.usernamePassword)
+			throw new Error(`Missing required argument 'usernamePassword'. Expecting a valid POST URL.`)
+
+		const { logo, tagline, blurb, terms, privacyPolicy, forgotPassword, defaultMode, redirectUrls } = config
+
+		const { onSuccess, onError } = redirectUrls || {}
+		const formatOAuth2Url = onSuccess && onError ? (u => `${u}/${encodeURIComponent(onSuccess)}/${encodeURIComponent(onError)}`) : (u => u)
+
+		const usrPwdOAuth2 = formatOAuth2Url(config.usernamePassword)
 
 		let { login:loginTagline, signup:signupTagline } = tagline || {}
 		let { login:loginBlurb, signup:signupBlurb } = blurb || {}
@@ -76,7 +84,7 @@ function UserInForm(config) {
 			if (config[key]) {
 				if (key == 'facebookOAuth2') 
 					buttons.push(`
-					<form action="${config[key]}" class="userin-form-button" target="_top">
+					<form action="${formatOAuth2Url(config[key])}" class="userin-form-button" target="_top">
 						<button class="userin-idp-button userin-facebook-button userin-social-button">
 							<div class="userin-social-media-logo-container">
 								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 216 216" class="userin-social-media-logo" color="#ffffff">
@@ -90,7 +98,7 @@ function UserInForm(config) {
 					</form>`)
 				else if (key == 'googleOAuth2')
 					buttons.push(`
-					<form action="${config[key]}" class="userin-form-button" target="_top">
+					<form action="${formatOAuth2Url(config[key])}" class="userin-form-button" target="_top">
 						<button class="userin-idp-button userin-google-button userin-social-button">
 							<div class="userin-social-media-logo-container">
 								<span class="userin-social-media-logo-background">
@@ -111,7 +119,7 @@ function UserInForm(config) {
 					</form>`)
 				else if (key == 'linkedInOAuth2')
 					buttons.push(`
-					<form action="${config[key]}" class="userin-form-button" target="_top">
+					<form action="${formatOAuth2Url(config[key])}" class="userin-form-button" target="_top">
 						<button class="userin-idp-button userin-linkedin-button userin-social-button">
 							<div class="userin-social-media-logo-container">
 								<span class="userin-social-media-logo-background">
@@ -128,7 +136,7 @@ function UserInForm(config) {
 					</form>`)
 				else if (key == 'gitHubOAuth2')
 					buttons.push(`
-					<form action="${config[key]}" class="userin-form-button" target="_top">
+					<form action="${formatOAuth2Url(config[key])}" class="userin-form-button" target="_top">
 						<button class="userin-idp-button userin-github-button userin-social-button">
 							<div class="userin-social-media-logo-container">
 								<span class="userin-social-media-logo-background">
@@ -148,7 +156,7 @@ function UserInForm(config) {
 					</form>`)
 				else if (key == 'twitterOAuth2')
 					buttons.push(`
-					<form action="${config[key]}" class="userin-form-button" target="_top">
+					<form action="${formatOAuth2Url(config[key])}" class="userin-form-button" target="_top">
 						<button class="userin-idp-button userin-twitter-button userin-social-button">
 							<div class="userin-social-media-logo-container">
 								<span class="userin-social-media-logo-background">
@@ -203,19 +211,19 @@ function UserInForm(config) {
 					${signupBlurb ? `<div class="userin-blurb">${signupBlurb}</div>` : ''}
 				</div>
 				<div id="userin-login-form" class="${loginFormClass}">
-					<form id="usr-pwd-form" class="userin-email-form" target="_top" action="/login/graphiql" method="post">
-						<input type="email" name="email" placeholder="Email" class="userin-input-form" required>
-						<input type="password" name="password" placeholder="Password" class="userin-input-form" required>
+					<form id="usr-pwd-form" class="userin-email-form" target="_top" action="${usrPwdOAuth2}" method="post" enctype="application/json">
+						<input type="email" name="user.email" placeholder="Email" class="userin-input-form" required>
+						<input type="password" name="user.password" placeholder="Password" class="userin-input-form" required>
 						<input type="submit" value="Continue" class="userin-login-button">
 						<div id="usr-pwd-form-err" class="userin-error-form-message" style="display: none"></div>
 					</form>	
 				</div>
 				<div id="userin-signup-form" class="${signupFormClass}">
-					<form id="usr-pwd-reg-form" class="userin-email-form" target="_top" action="/register/graphiql" method="post">
-						<input type="text" name="firstName" placeholder="First name" class="userin-input-form" required>
-						<input type="text" name="lastName" placeholder="Last name" class="userin-input-form" required>
-						<input id="reg-email" type="email" name="email" placeholder="Email" class="userin-input-form" required>
-						<input id="reg-pwd" type="password" name="password" placeholder="Password" class="userin-input-form" required>
+					<form id="usr-pwd-reg-form" class="userin-email-form" target="_top" action="${usrPwdOAuth2}" method="post" enctype="application/json">
+						<input type="text" name="user.firstName" placeholder="First name" class="userin-input-form" required>
+						<input type="text" name="user.lastName" placeholder="Last name" class="userin-input-form" required>
+						<input id="reg-email" type="email" name="user.email" placeholder="Email" class="userin-input-form" required>
+						<input id="reg-password" type="password" name="user.password" placeholder="Password" class="userin-input-form" required>
 						<input type="submit" value="Continue" class="userin-login-button">
 						<div id="usr-pwd-reg-form-err" class="userin-error-form-message" style="display: none"></div>
 					</form>	
@@ -277,57 +285,6 @@ function UserInForm(config) {
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	//////////////////////////						3. START - OVERRIDE FORM SUBMIT BEHAVIOR					/////////////////////////
-
-	const overrideFormBehavior = (formElement) => {
-		function processForm(e) {
-			if (e.preventDefault) e.preventDefault()
-			var inputs = formElement.getElementsByTagName('input')
-			var values = {}
-			var email, pwd
-			for (var index = 0; index < inputs.length; ++index) {
-				var el = inputs[index]
-				if (el.type != 'submit') {
-					if (el.name == 'email') email = el.value
-					if (el.name == 'password') pwd = el.value
-					values[el.name] = el.value
-				}
-			}
-			var xhttp = new XMLHttpRequest()
-			xhttp.onreadystatechange = function() {
-				if (xhttp.readyState == XMLHttpRequest.DONE) {
-					const res = JSON.parse(xhttp.responseText) || {}
-					// User does not exists. Show register page
-					if (res.errorCode == 300) {
-						if (email) document.getElementById('reg-email').value = email
-						if (pwd) document.getElementById('reg-pwd').value = pwd
-						document.getElementById('login-form').style.display = 'none'
-						document.getElementById('register-form').style.display = 'block'
-					}
-					else if (res.errorCode) {
-						var errEl = (formElement.getElementsByTagName('div') || [])[0]
-						errEl.innerHTML = res.message
-						errEl.style.display = 'block'
-					}
-					else if (res.redirect)
-						window.location.href = res.redirect
-				}
-			}
-			
-			xhttp.open('POST', formElement.action, true)
-			xhttp.setRequestHeader('Content-type', 'application/json')
-			xhttp.send(JSON.stringify(values))
-			return false
-		}
-		return processForm
-	}
-
-	//////////////////////////						3. END - OVERRIDE FORM SUBMIT BEHAVIOR						/////////////////////////
-	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 	const el = config.el 
 	if (!el) 
 		throw new Error('Missing required argument \'el\'.')
@@ -337,21 +294,12 @@ function UserInForm(config) {
 		throw new Error(`DOM '${el}' not found.`)
 
 	domEl.innerHTML = createComponent(config)
-	// Override form submit behavior for all login button
-	const forms = [document.getElementById('usr-pwd-form'), document.getElementById('usr-pwd-reg-form')]
-	for (let i = 0; i < forms.length; i++) {
-		if (forms[i].attachEvent) {
-			forms[i].attachEvent('submit', overrideFormBehavior(forms[i]))
-		} else {
-			forms[i].addEventListener('submit', overrideFormBehavior(forms[i]))
-		}
-	}
 
 	this.show = () => {
 		document.getElementById(darkBackgroundId).style.visibility = 'unset'
 		document.getElementById(formDomId).style.visibility = 'unset'
 		animateFadeIn(document.getElementById(formDomId), 500)
-		animateTopDown(document.getElementById(formDomId), 300, { start:-400, end:0 })
+		animateTopDown(document.getElementById(formDomId), 300, { start:-200, end:0 })
 	}
 
 	this.hide = () => {
