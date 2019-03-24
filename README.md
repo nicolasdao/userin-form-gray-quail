@@ -152,7 +152,7 @@ This example is very similar to the one above, but instead of using a static for
 </html>
 ```
 
-<p align="center"><img src="https://raw.githubusercontent.com/nicolasdao/userin-form-gray-quail/master/doc/img/animated_config.gif" width="600"/></p>
+<p align="center"><img src="https://raw.githubusercontent.com/nicolasdao/userin-form-gray-quail/master/doc/img/standard_modal.mp4" width="600"/></p>
 
 __*Parameters*__
 
