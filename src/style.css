@@ -32,9 +32,11 @@ select:-webkit-autofill:focus {
 	height: 100%;
 	background: rgba(29, 29, 29, 0.43);
 	visibility: hidden;
+	opacity: 0;
 	z-index: 9999;
 }
 .userin-form-box {
+	position: fixed;
 	z-index: 10000;
 	display: flex;
 	flex-direction: column;
@@ -42,10 +44,16 @@ select:-webkit-autofill:focus {
 	background-color: #f9f9f9;
 	width: 410px;
 	border-radius: 10px;
-	box-shadow: 1px 18px 46px #636363d6;
 	margin-bottom: 80px;
 	visibility: hidden;
+	opacity: 0;
 	font-family: 'Helvetica Neue', Helvetica, 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', メイリオ, Meiryo, 'ＭＳ Ｐゴシック', arial,sans-serif;
+}
+.userin-form-box.shadow-for-modal-on {
+	box-shadow: 1px 18px 46px #636363d6;
+}
+.userin-form-box.shadow-for-modal-off {
+	box-shadow: 0px 11px 37px #63636378;
 }
 .userin-form-container {
 	display: flex;
@@ -54,21 +62,21 @@ select:-webkit-autofill:focus {
 	align-items: center;
 }
 .userin-close-button {
-	width: 100%
+	width: 100%;
+	min-height: 41px;
 }
 .userin-close-button svg {
-	position: relative;
-	padding-top: 14px;
-	margin: auto;
-	width: 185%;
+	display: block;
+    padding-top: 14px;
+    margin-left: 371px;
 }
 .userin-close-button svg path {
 	fill: #404040;
 }
-.userin-close-button svg g:hover path {
+.userin-close-button svg:hover g path {
 	fill: #FFFFFF;
 }
-.userin-close-button svg g:hover circle {
+.userin-close-button svg:hover g circle {
 	fill: #d3132a;
 }
 .userin-logo {
@@ -99,6 +107,9 @@ select:-webkit-autofill:focus {
 	color: #989898;
 	padding-bottom: 5px;
 	letter-spacing: -0.4px;
+}
+.userin-login-signup-switch {
+	padding-top: 14px;
 }
 #userin-login-footer div a {
 	display:block;
@@ -263,7 +274,7 @@ p.or {
 	font-size: 11px;
 	color: #989898;
 	text-align: center;
-	margin: 6px 0px 14px 0px;
+	margin-top: 6px;
 	line-height: 15px;
 }
 .userin-terms a {

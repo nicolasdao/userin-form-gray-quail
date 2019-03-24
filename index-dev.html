@@ -12,14 +12,16 @@
 		var loginForm = new UserInForm({
 			el: '#main',
 			logo: "https://neap.co/img/neap_color_horizontal.png",
-			tagline: {
-				login: "Log in to Magic App",
-				signup: "Sign up to Magic App",
-			},
-			blurb: {
-				login: "This adventure begins now",
-				signup: "This adventure begins now",
-			},
+			tagline: "Killer App",
+			blurb: "The adventure begins now",
+			// tagline: {
+			// 	login: "Log in to Magic App",
+			// 	signup: "Sign up to Magic App",
+			// },
+			// blurb: {
+			// 	login: "This adventure begins now",
+			// 	signup: "This adventure begins now",
+			// },
 			usernamePassword: 'http://localhost:3000/default/oauth2',
 			facebookOAuth2: 'http://localhost:3000/facebook/oauth2',
 			googleOAuth2: 'http://localhost:3000/google/oauth2',
@@ -29,10 +31,16 @@
 			terms: 'https://termsfeed.com/blog/saas-terms-use-privacy-policy/', // optional
 			privacyPolicy: 'https://privacypolicies.com/blog/privacy-policy-saas/', // optional
 			forgotPassword: 'https://neap.co', // optional
-			defaultMode: 'login', // default is 'signup'
 			redirectUrls: {
 				onSuccess: 'http://localhost:8080/success',
 				onError: 'http://localhost:8080/dev'
+			},
+			modal: {
+				animate: true
+			},
+			init: {
+				// mode: 'login', // default is 'signup'
+				visible: false // default is true. Only valid if the modal is on
 			}
 		})
 		document.getElementById('login').addEventListener('click', function() {
