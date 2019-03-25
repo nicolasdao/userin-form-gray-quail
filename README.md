@@ -36,12 +36,12 @@ Add the CSS and the JS into your web page as follow:
 <html>
 <head>
 	<!-- Some HTML here... -->
-	<link rel="stylesheet" href="https://unpkg.com/userin-form-gray-quail@0.0.4/dist/style.min.css">
+	<link rel="stylesheet" href="https://unpkg.com/userin-form-gray-quail@0.0.5/dist/style.min.css">
 </head>
 <body>
 	<div id="userin-form-modal"></div>
 	<!-- Some HTML here... -->
-	<script src="https://unpkg.com/userin-form-gray-quail@0.0.4/dist/index.min.js"></script>
+	<script src="https://unpkg.com/userin-form-gray-quail@0.0.5/dist/index.min.js"></script>
 	<script type="text/javascript">
 		var loginForm = new UserInForm({
 			el: '#userin-form-modal',
@@ -123,12 +123,12 @@ This example is very similar to the one above, but instead of using a static for
 <html>
 <head>
 	<title>UserIn - Gray Quail</title>
-	<link rel="stylesheet" href="https://unpkg.com/userin-form-gray-quail@0.0.4/dist/style.min.css">
+	<link rel="stylesheet" href="https://unpkg.com/userin-form-gray-quail@0.0.5/dist/style.min.css">
 </head>
 <body>
 	<button id="login">Login</button>
 	<div id="main"></div>
-	<script src="https://unpkg.com/userin-form-gray-quail@0.0.4/dist/index.min.js"></script>
+	<script src="https://unpkg.com/userin-form-gray-quail@0.0.5/dist/index.min.js"></script>
 	<script type="text/javascript">
 		var loginForm = new UserInForm({
 			el: '#main',
@@ -280,8 +280,8 @@ This project aims to be modified by you so you can customize it beyond the out-o
 ## Option 1 - Replace The CSS With Your Own
 
 The original CSS and its minified version are respectively hosted at:
-- [https://unpkg.com/userin-form-gray-quail@0.0.4/dist/style.css](https://unpkg.com/userin-form-gray-quail@0.0.4/dist/style.css)
-- [https://unpkg.com/userin-form-gray-quail@0.0.4/dist/style.min.css](https://unpkg.com/userin-form-gray-quail@0.0.4/dist/style.min.css)
+- [https://unpkg.com/userin-form-gray-quail@0.0.5/dist/style.css](https://unpkg.com/userin-form-gray-quail@0.0.5/dist/style.css)
+- [https://unpkg.com/userin-form-gray-quail@0.0.5/dist/style.min.css](https://unpkg.com/userin-form-gray-quail@0.0.5/dist/style.min.css)
 
 Copy the unminified version, modify it, and use your version instead of ours.
 
