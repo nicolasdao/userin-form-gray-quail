@@ -7,6 +7,10 @@ __*UserIn Form - Gray Quail*__ is a configurable JS form widget that uses the __
 * GitHub
 * Twitter
 
+<p align="center"><img src="https://raw.githubusercontent.com/nicolasdao/userin-form-gray-quail/master/doc/img/standard_config.jpg" width="400"/></p>
+
+This project uses vanilla JS and CSS. There are no dependencies, except for development. More about modifying this project to your own needs under the [Customizing This Project To Your Own Needs](#customizing-this-project-to-your-own-needs) section.
+
 # Table of Contents
 
 > * [Install](#install) 
@@ -14,7 +18,12 @@ __*UserIn Form - Gray Quail*__ is a configurable JS form widget that uses the __
 >   - [Standard Config](#standard-config)
 >   - [Switching To Modal Mode](#switching-to-modal-mode)
 >   - [Other Configs](#other-configs)
+>   - [Full Parameters List](#full-parameters-list)
 > * [List Of Supported Identity Providers](#list-of-supported-identity-providers)
+> * [Customizing This Project To Your Own Needs](#customizing-this-project-to-your-own-needs)
+>   - [Option 1 - Replace The CSS With Your Own (easiest)](#option-1---replace-the-css-with-your-own): 
+>   - [Option 2 - Clone This Project And Build Your Own Form](#option-2---clone-this-project-and-build-your-own-form): 
+> * [Contribute](#contribute)
 > * [About Neap](#this-is-what-we-re-up-to)
 > * [License](#license)
 
@@ -27,12 +36,12 @@ Add the CSS and the JS into your web page as follow:
 <html>
 <head>
 	<!-- Some HTML here... -->
-	<link rel="stylesheet" href="https://unpkg.com/userin-form-gray-quail@0.0.3/dist/style.min.css">
+	<link rel="stylesheet" href="https://unpkg.com/userin-form-gray-quail@0.0.4/dist/style.min.css">
 </head>
 <body>
 	<div id="userin-form-modal"></div>
 	<!-- Some HTML here... -->
-	<script src="https://unpkg.com/userin-form-gray-quail@0.0.3/dist/index.min.js"></script>
+	<script src="https://unpkg.com/userin-form-gray-quail@0.0.4/dist/index.min.js"></script>
 	<script type="text/javascript">
 		var loginForm = new UserInForm({
 			el: '#userin-form-modal',
@@ -43,14 +52,14 @@ Add the CSS and the JS into your web page as follow:
 </html>
 ```
 
-<p align="center"><img src="https://raw.githubusercontent.com/nicolasdao/userin-form-gray-quail/master/doc/img/default_config.jpg" width="600"/></p>
+<p align="center"><img src="https://raw.githubusercontent.com/nicolasdao/userin-form-gray-quail/master/doc/img/default_config.jpg" width="400"/></p>
 
 This example demonstrates the minimal configuration. 
 
 | Parameter				| Field		| Type		| Description																	|
 |-----------------------|-----------|-----------|-------------------------------------------------------------------------------|
 | `el` 					| REQUIRED	| String	| CSS selector to the DOM under which the form is inserted.						|
-| `usernamePassword` 	| REQUIRED	| String	| URL of your UserIn auth endpoint (e.g., http://localhost:3000/default/oauth2) 	|
+| `usernamePassword` 	| REQUIRED	| String	| URL of your UserIn auth endpoint (e.g., http://localhost:3000/default/oauth2) |
 
 # Configuration
 ## Standard Config
@@ -76,7 +85,7 @@ var loginForm = new UserInForm({
 })
 ```
 
-<p align="center"><img src="https://raw.githubusercontent.com/nicolasdao/userin-form-gray-quail/master/doc/img/standard_config.jpg" width="600"/></p>
+<p align="center"><img src="https://raw.githubusercontent.com/nicolasdao/userin-form-gray-quail/master/doc/img/standard_config.jpg" width="400"/></p>
 
 __*Parameters*__
 
@@ -86,7 +95,7 @@ __*Parameters*__
 | `logo` 				| OPTIONAL	| String	| URL of the logo that appears at the top of the form.							|
 | `tagline` 			| OPTIONAL	| String	| Tagline that appears at the top of the form.									|
 | `blurb` 				| OPTIONAL	| String	| Blurb that appears at the top of the form.									|
-| `usernamePassword` 	| REQUIRED	| String	| URL of your UserIn auth endpoint (e.g., http://localhost:3000/default/oauth2) 	|
+| `usernamePassword` 	| REQUIRED	| String	| URL of your UserIn auth endpoint (e.g., http://localhost:3000/default/oauth2) |
 | `facebookOAuth2` 		| OPTIONAL	| String	| URL of your UserIn OAuth endpoint for Facebook (e.g., http://localhost:3000/facebook/oauth2) 	|
 | `googleOAuth2` 		| OPTIONAL	| String	| URL of your UserIn OAuth endpoint for Google (e.g., http://localhost:3000/google/oauth2) 	|
 | `terms` 				| OPTIONAL	| String	| URL to your terms and conditions web page. 									|
@@ -114,12 +123,12 @@ This example is very similar to the one above, but instead of using a static for
 <html>
 <head>
 	<title>UserIn - Gray Quail</title>
-	<link rel="stylesheet" href="https://unpkg.com/userin-form-gray-quail@0.0.3/dist/style.min.css">
+	<link rel="stylesheet" href="https://unpkg.com/userin-form-gray-quail@0.0.4/dist/style.min.css">
 </head>
 <body>
 	<button id="login">Login</button>
 	<div id="main"></div>
-	<script src="https://unpkg.com/userin-form-gray-quail@0.0.3/dist/index.min.js"></script>
+	<script src="https://unpkg.com/userin-form-gray-quail@0.0.4/dist/index.min.js"></script>
 	<script type="text/javascript">
 		var loginForm = new UserInForm({
 			el: '#main',
@@ -152,7 +161,7 @@ This example is very similar to the one above, but instead of using a static for
 </html>
 ```
 
-<p align="center"><img src="https://raw.githubusercontent.com/nicolasdao/userin-form-gray-quail/master/doc/img/standard_modal.mp4" width="600"/></p>
+<p align="center"><img src="https://raw.githubusercontent.com/nicolasdao/userin-form-gray-quail/master/doc/img/standard_modal.gif" width="400"/></p>
 
 __*Parameters*__
 
@@ -195,16 +204,155 @@ blurb: {
 }
 ```
 
+## Full Parameters List
+
+| Parameter				| Field		| Type		| Description																	|
+|-----------------------|-----------|-----------|-------------------------------------------------------------------------------|
+| `el` 					| REQUIRED	| String	| CSS selector to the DOM under which the form is inserted.						|
+| `usernamePassword` 	| REQUIRED	| String	| URL of your UserIn auth endpoint (e.g., http://localhost:3000/default/oauth2) |
+| `logo` 				| OPTIONAL	| String	| URL of the logo that appears at the top of the form.							|
+| `tagline` 			| OPTIONAL	| String	| Tagline that appears at the top of the form.									|
+| `blurb` 				| OPTIONAL	| String	| Blurb that appears at the top of the form.									|
+| `facebookOAuth2` 		| OPTIONAL	| String	| URL of your UserIn OAuth endpoint for Facebook (e.g., http://localhost:3000/facebook/oauth2) 	|
+| `googleOAuth2` 		| OPTIONAL	| String	| URL of your UserIn OAuth endpoint for Google (e.g., http://localhost:3000/google/oauth2) 	|
+| `terms` 				| OPTIONAL	| String	| URL to your terms and conditions web page. 									|
+| `privacyPolicy` 		| OPTIONAL	| String	| URL to your privacy policy web page. 											|
+| `forgotPassword` 		| OPTIONAL	| String	| URL to your forgot password web page. 										|
+| `redirectUrls` 		| OPTIONAL	| Object	| URLs used after successful or failed authentication. 							|
+| `modal` 				| OPTIONAL	| Boolean or Object	| To toggle the modal mode, set this property to either true or a truthy object. |
+| `modal.animate` 		| OPTIONAL	| Boolean	| Default is false. When false, the modal appears immediately when it is opened. It also disappears immediately when it is closed. When set to true, opening and closing the form respectively fades in and out.	|
+| `init` 				| OPTIONAL	| Object	| This object determines the form's behavior after it has loaded.				|
+| `init.mode` 			| OPTIONAL	| String	| Default is 'signup'. With 'signup', the default form shown to the user when the widget appears is the signup form. When set to 'login', the first form shown to the user when the widget appears is the login form. |
+| `init.visible` 		| OPTIONAL	| Boolean	| Default is true. This configuration is only when the `modal` property is truthy. When true, the form appears automatically after it is loaded. When set to false, the form when it has loaded. It must be opened explicitely using the `show()` api as demonstrated at the bottom of the example above. |
+
 # List Of Supported Identity Providers
 
+This __*[UserIn](https://github.com/nicolasdao/userin)*__ form widjet supports 5 different Identity Providers (IdPs) and the standard username/password form. To use any of those IdPs, your [UserIn](https://github.com/nicolasdao/userin) instance must have been configured to support them. To set up an IdP in _UserIn_, please refer to the documentation [here](https://github.com/nicolasdao/userin#2-create-an-app-in-each-idp-you-want-to-support).
+
+Once configured in _UserIn_, each IdP should have an entry point similar to `https://your-hosted-userin-domain/<idp-name>/oauth2`. Configuring this form with an IdP can then be achieved by modifying this `UserInForm` input as follow:
+
 ```js
-usernamePassword: 'http://localhost:3000/default/oauth2',
-facebookOAuth2: 'http://localhost:3000/facebook/oauth2',
-googleOAuth2: 'http://localhost:3000/google/oauth2',
-linkedInOAuth2: 'http://localhost:3000/linkedin/oauth2',
-gitHubOAuth2: 'http://localhost:3000/github/oauth2',
-twitterOAuth2: 'http://localhost:3000/twitter/oauth2'
-````
+new UserInForm({
+	// other configs...
+	usernamePassword: 'https://your-hosted-userin-domain/default/oauth2',
+	facebookOAuth2: 'https://your-hosted-userin-domain/facebook/oauth2',
+	googleOAuth2: 'https://your-hosted-userin-domain/google/oauth2',
+	linkedInOAuth2: 'https://your-hosted-userin-domain/linkedin/oauth2',
+	gitHubOAuth2: 'https://your-hosted-userin-domain/github/oauth2',
+	twitterOAuth2: 'https://your-hosted-userin-domain/twitter/oauth2'
+})
+```
+
+This config will enable all available IdPs in that order:
+- Facebook
+- Google 
+- LinkedIn
+- GitHub
+- Twitter
+
+To change the order to, for example:
+- Twitter
+- GitHub
+- LinkedIn
+- Google 
+- Facebook
+
+Simply change the input order as follow:
+
+```js
+new UserInForm({
+	// other configs...
+	usernamePassword: 'https://your-hosted-userin-domain/default/oauth2',
+	twitterOAuth2: 'https://your-hosted-userin-domain/twitter/oauth2',
+	gitHubOAuth2: 'https://your-hosted-userin-domain/github/oauth2',
+	linkedInOAuth2: 'https://your-hosted-userin-domain/linkedin/oauth2',
+	googleOAuth2: 'https://your-hosted-userin-domain/google/oauth2',
+	facebookOAuth2: 'https://your-hosted-userin-domain/facebook/oauth2'
+})
+```
+# Customizing This Project To Your Own Needs
+
+This project aims to be modified by you so you can customize it beyond the out-of-the-box configurations we offer. There are 2 ways you can customize this project:
+
+1. __*[Option 1 - Replace The CSS With Your Own (easiest)](#option-1---replace-the-css-with-your-own)*__: With this option, the form's functionalities fit all you needs, but the style does not. To solve this challenge, simply copy this form's CSS, and update it based on your specific needs. 
+2. __*[Option 2 - Clone This Project And Build Your Own Form](#option-2---clone-this-project-and-build-your-own-form)*__: With this option, the functionalities of this form do not meet your requirements fully. Instead of recoding everything from scratch, you prefer to leverage our work and modify our code. 
+
+## Option 1 - Replace The CSS With Your Own
+
+The original CSS and its minified version are respectively hosted at:
+- [https://unpkg.com/userin-form-gray-quail@0.0.4/dist/style.css](https://unpkg.com/userin-form-gray-quail@0.0.4/dist/style.css)
+- [https://unpkg.com/userin-form-gray-quail@0.0.4/dist/style.min.css](https://unpkg.com/userin-form-gray-quail@0.0.4/dist/style.min.css)
+
+Copy the unminified version, modify it, and use your version instead of ours.
+
+## Option 2 - Clone This Project And Build Your Own Form
+
+Follow the next steps to build your own form using this project:
+
+## 1. Clone/Fork This Project
+
+Fork this repo, or clone it using:
+```
+git clone https://github.com/nicolasdao/userin-form-gray-quail.git
+``` 
+
+## 2. Install The Dev Dependencies & Run The Project
+
+```
+npm i
+```
+
+The only dependencies of this project are dev dependencies which can be described in a nutshell as:
+
+- __babel + webpack + uglifyjs__: Used to compiled the source code written with ES6 to ES5.
+- __uglifycss__: Used to compress the CSS.
+- __eslint__: Used to lint the code.
+- __standard-version__: Used to facilitate the version bumping and the CHANGELOG maintenance.
+- __express__: Used to host a test server.
+
+The source code itself does not use any dependencies. It is pure vanilla JS and vanilla CSS.
+
+After installing all the dependencies, run the server:
+
+```
+npm start
+```
+
+This will host a demo page with a login button at [http://localhost:8080/dev/](http://localhost:8080/dev/).
+
+> INFO: The HTML page hosted at the above URL is the `index-dev.html`. Use this page during your test. The `index-prod.html` is discussed later in step [4. Rebuild For Production Use](#4-rebuild-for-production-use).
+
+## 3. Modify The Source Code To Fit Your Requirements
+
+The source code is located under the `src` folder. There are only 2 files:
+- __index.js__: Contains the vanilla ES6 JS responsible to configure the widget.
+- __style.css__: Contains the vanilla CSS responsible to styling the widget.
+
+## 4. Rebuild For Production Use
+
+Once you're done with all your code changes and you feel ready to deploy your code in production, follow the next steps:
+
+1. Lint the code to minimize the risk of silly mistakes: `npm run lint`.
+2. Change the project name in the `package.json` to `userin-form-<your code name>`. This is important if you're interested in having your form listed as an official _UserIn_ form. If you're not interested, rename that package using whatever name you want. 
+3. Compile the code to support ES5 and minimize both the JS and CSS: `npm run build`.
+4. Test your rebuilt widget using the __prod__ endpoint:
+	1. `npm start`
+	2. Browse to [http://localhost:8080/prod/](http://localhost:8080/prod/). This endpoint serves the `index-prod.html` page which is configured to serve the content compiled inside the `dist` folder.
+
+## Deploy Your New Widget To NPM & UNPKG
+
+Deploy your new UserIn form to NPM: `npm publish`
+
+This command will automatically host your new widget for free using the [https://unpkg.com/](https://unpkg.com/) CDN. Your code will be available at:
+
+- Unminified JS: [https://unpkg.com/your-package-name@your-current-version/dist/index.js](https://unpkg.com/your-package-name@your-current-version/dist/index.js)
+- Minified JS: [https://unpkg.com/your-package-name@your-current-version/dist/index.min.js](https://unpkg.com/your-package-name@your-current-version/dist/index.min.js)
+- Unminified CSS: [https://unpkg.com/your-package-name@your-current-version/dist/style.css](https://unpkg.com/your-package-name@your-current-version/dist/style.css)
+- Minified JS: [https://unpkg.com/your-package-name@your-current-version/dist/style.min.css](https://unpkg.com/your-package-name@your-current-version/dist/style.min.css)
+
+# Contribute
+
+Though this project is designed to be forked and modified to your own custom needs, we also accepts pull requests. 
 
 # This Is What We re Up To
 We are Neap, an Australian Technology consultancy powering the startup ecosystem in Sydney. We simply love building Tech and also meeting new people, so don't hesitate to connect with us at [https://neap.co](https://neap.co).
