@@ -402,11 +402,14 @@ function UserInForm(config) {
 	else
 		domEl.innerHTML = htmlModal
 
-	// 4. Add the following functionalities to this components:
+	// 4. Make sure that form does not trigger other behaviors attached to its parent.
+	document.getElementById(formModalId).addEventListener('click', e => e.stopPropagation())
+
+	// 5. Add the following functionalities to this components:
 	// 		4.1. show()
 	// 		4.2. hide()
 	// 		4.3. swithForm()
-	// 4.1.
+	// 5.1.
 	this.show = () => {
 		const form = document.getElementById(formModalId)
 
@@ -433,7 +436,7 @@ function UserInForm(config) {
 		}
 
 	}
-	// 4.2.
+	// 5.2.
 	this.hide = () => {
 		const form = document.getElementById(formModalId)
 		
@@ -461,7 +464,7 @@ function UserInForm(config) {
 			form.style.opacity = 0
 		}
 	}
-	// 4.3.
+	// 5.3.
 	this.swithForm = mode => () => {
 		const loginTitleEl = document.getElementById('userin-login-title')
 		const loginFormEl = document.getElementById('userin-login-form')
@@ -486,25 +489,25 @@ function UserInForm(config) {
 		signupFooterEl.classList[action1]('userin-signup-footer-show')
 	}
 
-	// 5. Attach functionalities to certain component's triggers:
-	// 		5.1. Hide the form when the close button is clicked or when the user clicks outside of the modal.
-	// 		5.2. Show or hide the modal when the modal is loaded for the fist time.
-	// 		5.3. Show error messages located in the query string (error_msg and error_code) if there are any. 
-	// 		5.4. Switch between login and signup form
+	// 6. Attach functionalities to certain component's triggers:
+	// 		6.1. Hide the form when the close button is clicked or when the user clicks outside of the modal.
+	// 		6.2. Show or hide the modal when the modal is loaded for the fist time.
+	// 		6.3. Show error messages located in the query string (error_msg and error_code) if there are any. 
+	// 		6.4. Switch between login and signup form
 	const _this = this
-	// 5.1.
+	// 6.1.
 	const closeButton = document.querySelectorAll(`#${closeFormButtonId} svg`)[0]
 	const modalBackground = document.getElementById(darkBackgroundId)
 	const closingDOMs = [closeButton, modalBackground]
 	closingDOMs.forEach(d => { if (d) d.addEventListener('click', function() { _this.hide() }) })
-	// 5.2.
+	// 6.2.
 	if (formVisible)
 		this.show()
 	else
 		this.hide()
-	// 5.3. 
+	// 6.3. 
 	showErrorMsg()
-	// 5.4. 
+	// 6.4. 
 	document.getElementById('userin-switch-to-login').addEventListener('click', _this.swithForm('login'))
 	document.getElementById('userin-switch-to-signup').addEventListener('click', _this.swithForm('signup'))
 
