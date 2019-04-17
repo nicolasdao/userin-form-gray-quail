@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.0.6"></a>
+## [0.0.6](https://github.com/nicolasdao/userin-form-gray-quail/compare/v0.0.5...v0.0.6) (2019-04-17)
+
+
+### Bug Fixes
+
+* merge conflict in the LICENSE ([de1333b](https://github.com/nicolasdao/userin-form-gray-quail/commit/de1333b))
+
+
+### Features
+
+* Add support for not being forced to attach the for to an existing DOM element ([0cb4720](https://github.com/nicolasdao/userin-form-gray-quail/commit/0cb4720))
+
+
+
 <a name="0.0.5"></a>
 ## [0.0.5](https://github.com/nicolasdao/userin-form-gray-quail/compare/v0.0.4...v0.0.5) (2019-03-25)
 
