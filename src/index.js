@@ -302,13 +302,17 @@ const getQueryString = (field, url) => {
 }
 
 const showErrorMsg = () => {
-	var errorCode = getQueryString('error_code')
-	var errorMsg = getQueryString('error_msg')
+	const errorCode = getQueryString('error_code')
+	const errorMsg = getQueryString('error_msg')
 	if (errorCode && errorMsg) {
-		var form = document.getElementById('usr-pwd-form')
-		var errEl = (form.getElementsByTagName('div') || [])[0]
-		errEl.innerHTML = decodeURIComponent(errorMsg)
-		errEl.style.display = 'block'
+		const em = decodeURIComponent(errorMsg)
+		const formIds = ['usr-pwd-form', 'usr-pwd-reg-form']
+		formIds.forEach(formId => {
+			const form = document.getElementById(formId)
+			const errEl = (form.getElementsByTagName('div') || [])[0]
+			errEl.innerHTML = em
+			errEl.style.display = 'block'
+		})
 	}
 }
 
@@ -351,12 +355,12 @@ function UserInForm(config) {
 	// 1. Extract, validate and format configuration settings
 	config = config || {}
 
-	const el = config.el 
-	if (!el) 
-		throw new Error('Missing required argument \'el\'.')
-	const domEl = document.querySelectorAll(el)[0]
-	if (!domEl) 
-		throw new Error(`DOM '${el}' not found.`)
+	// const el = config.el 
+	// if (!el) 
+	// 	throw new Error('Missing required argument \'el\'.')
+	// const domEl = document.querySelectorAll(el)[0]
+	// if (!domEl) 
+	// 	throw new Error(`DOM '${el}' not found.`)
 
 	const formId = `_${Date.now()}`
 	const formModalId = `${formId}-userin-login`
@@ -374,9 +378,21 @@ function UserInForm(config) {
 	// 2. Add a dark background DOM to the page behind the modal
 	const darkBackgroundNode = document.createElement('div')
 	darkBackgroundNode.setAttribute('id', darkBackgroundId)
-	darkBackgroundNode.classList.add('userin-dark-background')
+	darkBackgroundNode.classList.add('userin-dark-background') 
+	darkBackgroundNode.classList.add('userin-container')
 	const body = document.querySelector('body')
 	body.insertBefore(darkBackgroundNode, body.childNodes[0])
+
+	let domEl
+	if (config.el) {
+		const el = config.el 
+		if (!el) 
+			throw new Error('Missing required argument \'el\'.')
+		domEl = document.querySelectorAll(el)[0]
+		if (!domEl) 
+			throw new Error(`DOM '${el}' not found.`)
+	} else
+		domEl = document.querySelectorAll(`#${darkBackgroundId}`)[0]
 
 	// 3. Inject modal into the current page
 	const htmlModal = createComponent(config)
@@ -475,7 +491,7 @@ function UserInForm(config) {
 	// 		5.2. Show or hide the modal when the modal is loaded for the fist time.
 	// 		5.3. Show error messages located in the query string (error_msg and error_code) if there are any. 
 	// 		5.4. Switch between login and signup form
-	var _this = this
+	const _this = this
 	// 5.1.
 	const closeButton = document.querySelectorAll(`#${closeFormButtonId} svg`)[0]
 	const modalBackground = document.getElementById(darkBackgroundId)

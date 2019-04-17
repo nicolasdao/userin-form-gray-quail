@@ -36,12 +36,12 @@ Add the CSS and the JS into your web page as follow:
 <html>
 <head>
 	<!-- Some HTML here... -->
-	<link rel="stylesheet" href="https://unpkg.com/userin-form-gray-quail@0.0.5/dist/style.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/userin-form-gray-quail/dist/style.min.css">
 </head>
 <body>
 	<div id="userin-form-modal"></div>
 	<!-- Some HTML here... -->
-	<script src="https://unpkg.com/userin-form-gray-quail@0.0.5/dist/index.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/userin-form-gray-quail"></script>
 	<script type="text/javascript">
 		var loginForm = new UserInForm({
 			el: '#userin-form-modal',
@@ -58,7 +58,7 @@ This example demonstrates the minimal configuration.
 
 | Parameter				| Field		| Type		| Description																	|
 |-----------------------|-----------|-----------|-------------------------------------------------------------------------------|
-| `el` 					| REQUIRED	| String	| CSS selector to the DOM under which the form is inserted.						|
+| `el` 					| OPTIONAL	| String	| CSS selector to the DOM under which the form is inserted.	If not defined, the form is attached under the body	|
 | `usernamePassword` 	| REQUIRED	| String	| URL of your UserIn auth endpoint (e.g., http://localhost:3000/default/oauth2) |
 
 # Configuration
@@ -91,7 +91,7 @@ __*Parameters*__
 
 | Parameter				| Field		| Type		| Description																	|
 |-----------------------|-----------|-----------|-------------------------------------------------------------------------------|
-| `el` 					| REQUIRED	| String	| CSS selector to the DOM under which the form is inserted.						|
+| `el` 					| OPTIONAL	| String	| CSS selector to the DOM under which the form is inserted.	If not defined, the form is attached under the body					|
 | `logo` 				| OPTIONAL	| String	| URL of the logo that appears at the top of the form.							|
 | `tagline` 			| OPTIONAL	| String	| Tagline that appears at the top of the form.									|
 | `blurb` 				| OPTIONAL	| String	| Blurb that appears at the top of the form.									|
@@ -123,12 +123,12 @@ This example is very similar to the one above, but instead of using a static for
 <html>
 <head>
 	<title>UserIn - Gray Quail</title>
-	<link rel="stylesheet" href="https://unpkg.com/userin-form-gray-quail@0.0.5/dist/style.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/userin-form-gray-quail/dist/style.min.css">
 </head>
 <body>
 	<button id="login">Login</button>
 	<div id="main"></div>
-	<script src="https://unpkg.com/userin-form-gray-quail@0.0.5/dist/index.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/userin-form-gray-quail"></script>
 	<script type="text/javascript">
 		var loginForm = new UserInForm({
 			el: '#main',
@@ -208,7 +208,7 @@ blurb: {
 
 | Parameter				| Field		| Type		| Description																	|
 |-----------------------|-----------|-----------|-------------------------------------------------------------------------------|
-| `el` 					| REQUIRED	| String	| CSS selector to the DOM under which the form is inserted.						|
+| `el` 					| OPTIONAL	| String	| CSS selector to the DOM under which the form is inserted.	If not defined, the form is attached under the body					|
 | `usernamePassword` 	| REQUIRED	| String	| URL of your UserIn auth endpoint (e.g., http://localhost:3000/default/oauth2) |
 | `logo` 				| OPTIONAL	| String	| URL of the logo that appears at the top of the form.							|
 | `tagline` 			| OPTIONAL	| String	| Tagline that appears at the top of the form.									|
@@ -280,8 +280,8 @@ This project aims to be modified by you so you can customize it beyond the out-o
 ## Option 1 - Replace The CSS With Your Own
 
 The original CSS and its minified version are respectively hosted at:
-- [https://unpkg.com/userin-form-gray-quail@0.0.5/dist/style.css](https://unpkg.com/userin-form-gray-quail@0.0.5/dist/style.css)
-- [https://unpkg.com/userin-form-gray-quail@0.0.5/dist/style.min.css](https://unpkg.com/userin-form-gray-quail@0.0.5/dist/style.min.css)
+- [https://cdn.jsdelivr.net/npm/userin-form-gray-quail/dist/style.css](https://cdn.jsdelivr.net/npm/userin-form-gray-quail/dist/style.css)
+- [https://cdn.jsdelivr.net/npm/userin-form-gray-quail/dist/style.min.css](https://cdn.jsdelivr.net/npm/userin-form-gray-quail/dist/style.min.css)
 
 Copy the unminified version, modify it, and use your version instead of ours.
 
@@ -339,16 +339,16 @@ Once you're done with all your code changes and you feel ready to deploy your co
 	1. `npm start`
 	2. Browse to [http://localhost:8080/prod/](http://localhost:8080/prod/). This endpoint serves the `index-prod.html` page which is configured to serve the content compiled inside the `dist` folder.
 
-## Deploy Your New Widget To NPM & UNPKG
+## Deploy Your New Widget To NPM & JsDeliver CDN
 
 Deploy your new UserIn form to NPM: `npm publish`
 
-This command will automatically host your new widget for free using the [https://unpkg.com/](https://unpkg.com/) CDN. Your code will be available at:
+This command will automatically host your new widget for free using the [https://www.jsdelivr.com/](https://www.jsdelivr.com/) CDN. Your code will be available at:
 
-- Unminified JS: [https://unpkg.com/your-package-name@your-current-version/dist/index.js](https://unpkg.com/your-package-name@your-current-version/dist/index.js)
-- Minified JS: [https://unpkg.com/your-package-name@your-current-version/dist/index.min.js](https://unpkg.com/your-package-name@your-current-version/dist/index.min.js)
-- Unminified CSS: [https://unpkg.com/your-package-name@your-current-version/dist/style.css](https://unpkg.com/your-package-name@your-current-version/dist/style.css)
-- Minified JS: [https://unpkg.com/your-package-name@your-current-version/dist/style.min.css](https://unpkg.com/your-package-name@your-current-version/dist/style.min.css)
+- Unminified JS: [https://cdn.jsdelivr.net/npm/your-package-name@your-current-version/dist/index.js](https://cdn.jsdelivr.net/npm/your-package-name@your-current-version/dist/index.js)
+- Minified JS: [https://cdn.jsdelivr.net/npm/your-package-name@your-current-version/dist/index.min.js](https://cdn.jsdelivr.net/npm/your-package-name@your-current-version/dist/index.min.js)
+- Unminified CSS: [https://cdn.jsdelivr.net/npm/your-package-name@your-current-version/dist/style.css](https://cdn.jsdelivr.net/npm/your-package-name@your-current-version/dist/style.css)
+- Minified JS: [https://cdn.jsdelivr.net/npm/your-package-name@your-current-version/dist/style.min.css](https://cdn.jsdelivr.net/npm/your-package-name@your-current-version/dist/style.min.css)
 
 # Contribute
 

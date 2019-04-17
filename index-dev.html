@@ -6,11 +6,11 @@
 </head>
 <body>
 	<button id="login">Login</button>
-	<div id="main"></div>
+	<div id="main2"></div>
 	<script src="index.js"></script>
 	<script type="text/javascript">
 		var loginForm = new UserInForm({
-			el: '#main',
+			//el: '#main2',
 			logo: "https://neap.co/img/neap_color_horizontal.png",
 			tagline: {
 				login: "Log in to Magic App",
@@ -34,7 +34,7 @@
 				animate: true
 			},
 			init: {
-				visible: false 
+				visible: true 
 			}
 		})
 		document.getElementById('login').addEventListener('click', function() {
