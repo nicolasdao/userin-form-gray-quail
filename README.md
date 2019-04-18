@@ -15,14 +15,17 @@ This project uses vanilla JS and CSS. There are no dependencies, except for deve
 
 > * [Install](#install) 
 > * [Configuration](#configuration) 
->   - [Standard Config](#standard-config)
->   - [Switching To Modal Mode](#switching-to-modal-mode)
->   - [Other Configs](#other-configs)
->   - [Full Parameters List](#full-parameters-list)
+>	- [Standard Config](#standard-config)
+>	- [Switching To Modal Mode](#switching-to-modal-mode)
+>	- [Other Configs](#other-configs)
+>	- [Full Parameters List](#full-parameters-list)
+> * [How To](#how-to)
+>	- [How To Pre-Fill Form?](#how-to-pre-fill-form)
+>	- [How To Keep The Form Filled With The User Info After A Failed Login or Signup?](#how-to-keep-the-form-filled-with-the-user-info-after-a-failed-login-or-signup)
 > * [List Of Supported Identity Providers](#list-of-supported-identity-providers)
 > * [Customizing This Project To Your Own Needs](#customizing-this-project-to-your-own-needs)
->   - [Option 1 - Replace The CSS With Your Own (easiest)](#option-1---replace-the-css-with-your-own): 
->   - [Option 2 - Clone This Project And Build Your Own Form](#option-2---clone-this-project-and-build-your-own-form): 
+>	- [Option 1 - Replace The CSS With Your Own (easiest)](#option-1---replace-the-css-with-your-own): 
+>	- [Option 2 - Clone This Project And Build Your Own Form](#option-2---clone-this-project-and-build-your-own-form): 
 > * [Contribute](#contribute)
 > * [About Neap](#this-is-what-we-re-up-to)
 > * [License](#license)
@@ -218,12 +221,40 @@ blurb: {
 | `terms` 				| OPTIONAL	| String	| URL to your terms and conditions web page. 									|
 | `privacyPolicy` 		| OPTIONAL	| String	| URL to your privacy policy web page. 											|
 | `forgotPassword` 		| OPTIONAL	| String	| URL to your forgot password web page. 										|
-| `redirectUrls` 		| OPTIONAL	| Object	| URLs used after successful or failed authentication. 							|
+| `redirectUrls` 		| OPTIONAL	| Object	| URLs used after successfull or failed authentication. 							|
+| `redirectUrls.success`| OPTIONAL	| String|Object	| URL used after successfull authentication. If it is an object, then it must define 2 properties: `login` and `signup`. |
+| `redirectUrls.success.login`| REQUIRED	| String| URL used after successfull authentication on the login form.	|
+| `redirectUrls.success.signup`| REQUIRED	| String| URL used after successfull authentication on the signup form.	|
+| `redirectUrls.error`| OPTIONAL	| String|Object	| URL used after failed authentication. If it is an object, then it must define 2 properties: `login` and `signup`. |
+| `redirectUrls.error.login`| REQUIRED	| String| URL used after failed authentication on the login form.	|
+| `redirectUrls.error.signup`| REQUIRED	| String| URL used after failed authentication on the signup form.	|
 | `modal` 				| OPTIONAL	| Boolean or Object	| To toggle the modal mode, set this property to either true or a truthy object. |
 | `modal.animate` 		| OPTIONAL	| Boolean	| Default is false. When false, the modal appears immediately when it is opened. It also disappears immediately when it is closed. When set to true, opening and closing the form respectively fades in and out.	|
 | `init` 				| OPTIONAL	| Object	| This object determines the form's behavior after it has loaded.				|
 | `init.mode` 			| OPTIONAL	| String	| Default is 'signup'. With 'signup', the default form shown to the user when the widget appears is the signup form. When set to 'login', the first form shown to the user when the widget appears is the login form. |
 | `init.visible` 		| OPTIONAL	| Boolean	| Default is true. This configuration is only when the `modal` property is truthy. When true, the form appears automatically after it is loaded. When set to false, the form when it has loaded. It must be opened explicitely using the `show()` api as demonstrated at the bottom of the example above. |
+
+# How To
+## How To Pre-Fill Form?
+
+Pre-filling the __*UserIn Form*__ is possible using query parameters. The following example shows an exhaustive case of all the parameters that can be used:
+
+[http://localhost:8080/dev?screen=login&firstName=Nic&lastName=Dao&email=nic%40neap.co](http://localhost:8080/dev?screen=login&firstName=Nic&lastName=Dao&email=nic%40neap.co)
+
+Where:
+
+|Parameter 		| Description |
+|:--------------|:------------|
+| `screen` 		| Determines which form needs to be displayed. Possible values are: `login`, `signup` |
+| `firstName` 	| Pre-fills the signup's first name field |
+| `lastName` 	| Pre-fills the signup's last name field |
+| `emailName` 	| Pre-fills both the signup and login email field |
+
+This feature is what allows the next trick: [How To Keep The Form Filled With The User Info After A Failed Login or Signup?](#how-to-keep-the-form-filled-with-the-user-info-after-a-failed-login-or-signup).
+
+## How To Keep The Form Filled With The User Info After A Failed Login or Signup?
+
+When the uses wrongly enter their password or username, they may be redirected back to the __*UserIn Form*__ if you've setup the `redirectUrls` property to do so. By default, the form restarts and all the previously filled up inputs are empty. If you want to preserve the previous inputs to avoid your users to be forced to re-enter their details again, you can configure your __*UserIn*__ microservice to [return your users' details in the query paramaters](https://github.com/nicolasdao/userin#how-to-return-info-to-the-error-redirect-uri). As explained above, this pre-fills the form. 
 
 # List Of Supported Identity Providers
 
