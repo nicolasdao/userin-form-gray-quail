@@ -21,14 +21,19 @@
 				signup: "This adventure begins now",
 			},
 			usernamePassword: 'http://localhost:3000/default/oauth2',
-			facebookOAuth2: 'http://localhost:3000/facebook/oauth2',
-			googleOAuth2: 'http://localhost:3000/google/oauth2',
+			facebook: 'http://localhost:3000/facebook/oauth2',
+			google: 'http://localhost:3000/google/oauth2',
 			terms: 'https://termsfeed.com/blog/saas-terms-use-privacy-policy/', 
 			privacyPolicy: 'https://privacypolicies.com/blog/privacy-policy-saas/', 
 			forgotPassword: 'https://neap.co', 
 			redirectUrls: {
+				// onSuccess: 'http://localhost:8080/success',
+				// onError: 'http://localhost:8080/dev'
 				onSuccess: 'http://localhost:8080/success',
-				onError: 'http://localhost:8080/dev'
+				onError: {
+					login: 'http://localhost:8080/dev?screen=login',
+					signup: 'http://localhost:8080/dev?screen=signup'
+				}
 			},
 			modal: {
 				animate: true

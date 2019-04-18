@@ -16,11 +16,11 @@
  *                                          			@param {String} config.blurb.login 		Blurb for the login form
  *                                          			@param {String} config.blurb.signup 	Blurb for the signup form
  *                                          	
- * @param {String}  config.facebookOAuth2   		Optional. URL to the Facebook UserIn auth endpoint (e.g., http://localhost:3000/default/oauth2)
- * @param {String}  config.googleOAuth2     		Optional. URL to the Google UserIn auth endpoint (e.g., http://localhost:3000/facebook/oauth2)
- * @param {String}  config.linkedInOAuth2   		Optional. URL to the LinkedIn UserIn auth endpoint (e.g., http://localhost:3000/linkedin/oauth2)
- * @param {String}  config.gitHubOAuth2    			Optional. URL to the GitHub UserIn auth endpoint (e.g., http://localhost:3000/github/oauth2)
- * @param {String}  config.twitterOAuth2  			Optional. URL to the Twitter UserIn auth endpoint (e.g., http://localhost:3000/twitter/oauth2)
+ * @param {String}  config.facebook   				Optional. URL to the Facebook UserIn auth endpoint (e.g., http://localhost:3000/default/oauth2)
+ * @param {String}  config.google     				Optional. URL to the Google UserIn auth endpoint (e.g., http://localhost:3000/facebook/oauth2)
+ * @param {String}  config.linkedin   				Optional. URL to the LinkedIn UserIn auth endpoint (e.g., http://localhost:3000/linkedin/oauth2)
+ * @param {String}  config.github    				Optional. URL to the GitHub UserIn auth endpoint (e.g., http://localhost:3000/github/oauth2)
+ * @param {String}  config.twitter  				Optional. URL to the Twitter UserIn auth endpoint (e.g., http://localhost:3000/twitter/oauth2)
  * @param {String}  config.terms           			Optional. URL to the terms and condition page.
  * @param {String}  config.privacyPolicy    		Optional. URL to the privacy policy page.
  * @param {String}  config.forgotPassword   		Optional. URL to the forgot password page.
@@ -37,7 +37,7 @@
  * 
  * @return {String}	output 							HTML string.
  */
-const createComponent = config => {
+const _createComponent = config => {
 	// 1. Extract and format configuration settings
 	config = config || {}
 	if (!config.usernamePassword)
@@ -56,8 +56,19 @@ const createComponent = config => {
 	const modalShadowClass = modal ? 'shadow-for-modal-on' : 'shadow-for-modal-off'
 
 	const { onSuccess, onError } = redirectUrls || {}
-	const formatOAuth2Url = onSuccess && onError ? (u => `${u}/${encodeURIComponent(onSuccess)}/${encodeURIComponent(onError)}`) : (u => u)
-	const usrPwdOAuth2 = formatOAuth2Url(usernamePassword)
+	const [formatLoginOAuth2Url, formatSignupOAuth2Url] = (() => {
+		const idFn = u => u
+		if (!onSuccess || !onError)
+			return [idFn,idFn]
+		
+		const [onSuccessLoginUri, onSuccessSignupUri] = _getLoginSignupURIs(onSuccess)
+		const [onErrorLoginUri, onErrorSignupUri] = _getLoginSignupURIs(onError)
+		
+		return [
+			u => `${u}/${encodeURIComponent(onSuccessLoginUri)}/${encodeURIComponent(onErrorLoginUri)}`,
+			u => `${u}/${encodeURIComponent(onSuccessSignupUri)}/${encodeURIComponent(onErrorSignupUri)}`
+		]
+	})()
 
 	let { login:loginTagline, signup:signupTagline } = tagline || {}
 	let { login:loginBlurb, signup:signupBlurb } = blurb || {}
@@ -78,10 +89,11 @@ const createComponent = config => {
 	// 2. Create HTML buttons based on the selected Identity Providers
 	const buttons = []
 	Object.keys(config).forEach(key => {
-		if (config[key]) {
-			if (key == 'facebookOAuth2') 
+		if (key && config[key]) {
+			const k = key.toLowerCase().trim()
+			if (k == 'facebook') 
 				buttons.push(`
-				<form action="${formatOAuth2Url(config[key])}" class="userin-form-button" target="_top">
+				<form action="${formatSignupOAuth2Url(config[key])}" class="userin-form-button" target="_top">
 					<button class="userin-idp-button userin-facebook-button userin-social-button">
 						<div class="userin-social-media-logo-container">
 							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 216 216" class="userin-social-media-logo" color="#ffffff">
@@ -93,9 +105,9 @@ const createComponent = config => {
 						<div></div>
 					</button>
 				</form>`)
-			else if (key == 'googleOAuth2')
+			else if (k == 'google')
 				buttons.push(`
-				<form action="${formatOAuth2Url(config[key])}" class="userin-form-button" target="_top">
+				<form action="${formatSignupOAuth2Url(config[key])}" class="userin-form-button" target="_top">
 					<button class="userin-idp-button userin-google-button userin-social-button">
 						<div class="userin-social-media-logo-container">
 							<span class="userin-social-media-logo-background">
@@ -114,9 +126,9 @@ const createComponent = config => {
 					<div></div>
 					</button>
 				</form>`)
-			else if (key == 'linkedInOAuth2')
+			else if (k == 'linkedin')
 				buttons.push(`
-				<form action="${formatOAuth2Url(config[key])}" class="userin-form-button" target="_top">
+				<form action="${formatSignupOAuth2Url(config[key])}" class="userin-form-button" target="_top">
 					<button class="userin-idp-button userin-linkedin-button userin-social-button">
 						<div class="userin-social-media-logo-container">
 							<span class="userin-social-media-logo-background">
@@ -131,9 +143,9 @@ const createComponent = config => {
 						<div></div>
 					</button>
 				</form>`)
-			else if (key == 'gitHubOAuth2')
+			else if (k == 'github')
 				buttons.push(`
-				<form action="${formatOAuth2Url(config[key])}" class="userin-form-button" target="_top">
+				<form action="${formatSignupOAuth2Url(config[key])}" class="userin-form-button" target="_top">
 					<button class="userin-idp-button userin-github-button userin-social-button">
 						<div class="userin-social-media-logo-container">
 							<span class="userin-social-media-logo-background">
@@ -151,9 +163,9 @@ const createComponent = config => {
 						<div></div>
 					</button>
 				</form>`)
-			else if (key == 'twitterOAuth2')
+			else if (k == 'twitter')
 				buttons.push(`
-				<form action="${formatOAuth2Url(config[key])}" class="userin-form-button" target="_top">
+				<form action="${formatSignupOAuth2Url(config[key])}" class="userin-form-button" target="_top">
 					<button class="userin-idp-button userin-twitter-button userin-social-button">
 						<div class="userin-social-media-logo-container">
 							<span class="userin-social-media-logo-background">
@@ -211,7 +223,7 @@ const createComponent = config => {
 				${signupBlurb ? `<div class="userin-blurb">${signupBlurb}</div>` : ''}
 			</div>
 			<div id="userin-login-form" class="${loginFormClass}">
-				<form id="usr-pwd-form" class="userin-email-form" target="_top" action="${usrPwdOAuth2}" method="post" enctype="application/json">
+				<form id="usr-pwd-form" class="userin-email-form" target="_top" action="${formatLoginOAuth2Url(usernamePassword)}" method="post" enctype="application/json">
 					<input type="email" name="user.email" placeholder="Email" class="userin-input-form" required>
 					<input type="password" name="user.password" placeholder="Password" class="userin-input-form" required>
 					<input type="submit" value="Continue" class="userin-login-button">
@@ -219,7 +231,7 @@ const createComponent = config => {
 				</form>	
 			</div>
 			<div id="userin-signup-form" class="${signupFormClass}">
-				<form id="usr-pwd-reg-form" class="userin-email-form" target="_top" action="${usrPwdOAuth2}" method="post" enctype="application/json">
+				<form id="usr-pwd-reg-form" class="userin-email-form" target="_top" action="${formatSignupOAuth2Url(usernamePassword)}" method="post" enctype="application/json">
 					<input type="text" name="user.firstName" placeholder="First name" class="userin-input-form" required>
 					<input type="text" name="user.lastName" placeholder="Last name" class="userin-input-form" required>
 					<input id="reg-email" type="email" name="user.email" placeholder="Email" class="userin-input-form" required>
@@ -256,7 +268,35 @@ const createComponent = config => {
 	`
 }
 
-const transitionFn = (getEl, updateFn, time, options) => {
+/**
+ * Gets the login and signup encode URIs
+ * @param  {String|Object} 	u 			If string, this is the URI that represent both the login and signup URIs. If this is an object,
+ *                            	  		it must be structured as follow: { login: <string>, signup: <string> }
+ *                            	
+ * @return {String}			output[0]   Encoded Login URI
+ * @return {String}			output[1]   Encoded SignUp URI
+ */
+const _getLoginSignupURIs = u => {
+	if (!u)
+		throw new Error('Missing required argument \'u\'.')
+
+	const uType = typeof(u)
+	if (uType == 'string')
+		return [encodeURIComponent(uType), encodeURIComponent(uType)]
+	
+	if (uType != 'object')
+		throw new Error('Wrong argument exception. \'u\' must either be a string or an object.')
+
+	if (!u.login || !u.signup)
+		throw new Error('Wrong argument exception. When \'u\' is an object, it must specify a \'login\' and a \'signup\' property.')
+
+	if (typeof(u.login) != 'string' || typeof(u.signup) != 'string')
+		throw new Error('Wrong argument exception. Both \'u.login\' and \'u.signup\' must be strings.')	
+
+	return [encodeURIComponent(u.login), encodeURIComponent(u.signup)]
+}
+
+const _transitionFn = (getEl, updateFn, time, options) => {
 	options = options || {}
 	const start = options.start === undefined ? 0 : options.start
 	const end = options.end === undefined ? 1 : options.end
@@ -283,9 +323,9 @@ const transitionFn = (getEl, updateFn, time, options) => {
 	tick()
 }
 
-const animateFade = (el, time, options) => transitionFn(() => el.style.opacity, v => el.style.opacity = v, time, options)
+const _animateFade = (el, time, options) => _transitionFn(() => el.style.opacity, v => el.style.opacity = v, time, options)
 
-const animateVertical = (el, time, options) => transitionFn(
+const _animateVertical = (el, time, options) => _transitionFn(
 	() => {
 		const v = el.style['margin-top'] || '0'
 		const strNumber = (v.match(/^-{0,1}[0-9]+(\.[0-9]+){0,1}/) || [])[0]
@@ -294,25 +334,38 @@ const animateVertical = (el, time, options) => transitionFn(
 	v => el.style['margin-top'] = `${v}px`, 
 	time, options)
 
+/**
+ * Extracts a specific parameter from the query string. That parameter is also decoded.
+ * @param  {String} field Parameter name
+ * @param  {String} url   
+ * @return {String}       Decoded parameter's value
+ */
 const getQueryString = (field, url) => {
 	const href = url ? url : window.location.href
 	const reg = new RegExp( '[?&]' + field + '=([^&#]*)', 'i' )
 	const string = reg.exec(href)
-	return string ? string[1] : null
+	return string ? decodeURIComponent(string[1]||'') : null
 }
 
-const showErrorMsg = () => {
+const _showErrorMsg = () => {
 	const errorCode = getQueryString('error_code')
 	const errorMsg = getQueryString('error_msg')
 	if (errorCode && errorMsg) {
-		const em = decodeURIComponent(errorMsg)
 		const formIds = ['usr-pwd-form', 'usr-pwd-reg-form']
 		formIds.forEach(formId => {
 			const form = document.getElementById(formId)
 			const errEl = (form.getElementsByTagName('div') || [])[0]
-			errEl.innerHTML = em
+			errEl.innerHTML = errorMsg
 			errEl.style.display = 'block'
 		})
+	}
+}
+
+const _setInput = (selector, value) => {
+	if (value) {
+		let input = document.querySelector(selector)
+		if (input)
+			input.value = value
 	}
 }
 
@@ -332,11 +385,11 @@ const showErrorMsg = () => {
  *                                          			@param {String} config.blurb.login 		Blurb for the login form
  *                                          			@param {String} config.blurb.signup 	Blurb for the signup form
  *                                          	
- * @param {String}  config.facebookOAuth2   		Optional. URL to the Facebook UserIn auth endpoint (e.g., http://localhost:3000/default/oauth2)
- * @param {String}  config.googleOAuth2     		Optional. URL to the Google UserIn auth endpoint (e.g., http://localhost:3000/facebook/oauth2)
- * @param {String}  config.linkedInOAuth2   		Optional. URL to the LinkedIn UserIn auth endpoint (e.g., http://localhost:3000/linkedin/oauth2)
- * @param {String}  config.gitHubOAuth2    			Optional. URL to the GitHub UserIn auth endpoint (e.g., http://localhost:3000/github/oauth2)
- * @param {String}  config.twitterOAuth2  			Optional. URL to the Twitter UserIn auth endpoint (e.g., http://localhost:3000/twitter/oauth2)
+ * @param {String}  config.facebook   				Optional. URL to the Facebook UserIn auth endpoint (e.g., http://localhost:3000/default/oauth2)
+ * @param {String}  config.google     				Optional. URL to the Google UserIn auth endpoint (e.g., http://localhost:3000/facebook/oauth2)
+ * @param {String}  config.linkedin   				Optional. URL to the LinkedIn UserIn auth endpoint (e.g., http://localhost:3000/linkedin/oauth2)
+ * @param {String}  config.github    				Optional. URL to the GitHub UserIn auth endpoint (e.g., http://localhost:3000/github/oauth2)
+ * @param {String}  config.twitter  				Optional. URL to the Twitter UserIn auth endpoint (e.g., http://localhost:3000/twitter/oauth2)
  * @param {String}  config.terms           			Optional. URL to the terms and condition page.
  * @param {String}  config.privacyPolicy    		Optional. URL to the privacy policy page.
  * @param {String}  config.forgotPassword   		Optional. URL to the forgot password page.
@@ -352,15 +405,14 @@ const showErrorMsg = () => {
  *                                         			is visible by default or not.  
  */
 function UserInForm(config) {
-	// 1. Extract, validate and format configuration settings
-	config = config || {}
+	// 1. Extract query string params
+	const screenMode = getQueryString('screen') // either null, 'login' or 'signup'
+	const firstName = getQueryString('firstName') || getQueryString('firstname')
+	const lastName = getQueryString('lastName') || getQueryString('lastname')
+	const email = getQueryString('email') 
 
-	// const el = config.el 
-	// if (!el) 
-	// 	throw new Error('Missing required argument \'el\'.')
-	// const domEl = document.querySelectorAll(el)[0]
-	// if (!domEl) 
-	// 	throw new Error(`DOM '${el}' not found.`)
+	// 2. Extract, validate and format configuration settings
+	config = config || {}
 
 	const formId = `_${Date.now()}`
 	const formModalId = `${formId}-userin-login`
@@ -368,14 +420,16 @@ function UserInForm(config) {
 	const darkBackgroundId = `${formId}-userin-dark-background`
 	config.ids = { formModalId, closeFormButtonId }
 
-	const { init, modal } = config
+	let { init, modal } = config
+	if (screenMode == 'login' || screenMode == 'signup') // overides the configured init.mode
+		init.mode = screenMode
 	let { visible:formVisible=true } = init || {}
 	const { animate: animateModal } = modal || {}
 	const modalOn = modal ? true : false
 	if (!modalOn)
 		formVisible = true
 
-	// 2. Add a dark background DOM to the page behind the modal
+	// 3. Add a dark background DOM to the page behind the modal
 	const darkBackgroundNode = document.createElement('div')
 	darkBackgroundNode.setAttribute('id', darkBackgroundId)
 	darkBackgroundNode.classList.add('userin-dark-background') 
@@ -394,22 +448,22 @@ function UserInForm(config) {
 	} else
 		domEl = document.querySelectorAll(`#${darkBackgroundId}`)[0]
 
-	// 3. Inject modal into the current page
-	const htmlModal = createComponent(config)
+	// 4. Inject modal into the current page
+	const htmlModal = _createComponent(config)
 	const firstChildDomEl = domEl.childNodes[0]
 	if (firstChildDomEl)
 		domEl.insertBefore(new DOMParser().parseFromString(htmlModal, 'text/html').body.firstChild, firstChildDomEl)
 	else
 		domEl.innerHTML = htmlModal
 
-	// 4. Make sure that form does not trigger other behaviors attached to its parent.
+	// 5. Make sure that form does not trigger other behaviors attached to its parent.
 	document.getElementById(formModalId).addEventListener('click', e => e.stopPropagation())
 
-	// 5. Add the following functionalities to this components:
-	// 		4.1. show()
-	// 		4.2. hide()
-	// 		4.3. swithForm()
-	// 5.1.
+	// 6. Add the following functionalities to this components:
+	// 		6.1. show()
+	// 		6.2. hide()
+	// 		6.3. swithForm()
+	// 6.1.
 	this.show = () => {
 		const form = document.getElementById(formModalId)
 
@@ -418,12 +472,12 @@ function UserInForm(config) {
 			background.style.visibility = 'unset'
 			if (animateModal) {
 				background.style.opacity = 0
-				animateFade(background, 150)
+				_animateFade(background, 150)
 				setTimeout(() => {
 					form.style.visibility = 'unset'
 					form.style.opacity = 0
-					animateFade(form, 200)
-					animateVertical(form, 150, { start:-100, end:0 })
+					_animateFade(form, 200)
+					_animateVertical(form, 150, { start:-100, end:0 })
 				},100)
 			} else {
 				form.style.visibility = 'unset'
@@ -436,20 +490,20 @@ function UserInForm(config) {
 		}
 
 	}
-	// 5.2.
+	// 6.2.
 	this.hide = () => {
 		const form = document.getElementById(formModalId)
 		
 		if (modalOn) {
 			const background = document.getElementById(darkBackgroundId)
 			if (animateModal) {
-				animateVertical(form, 250, { start:0, end:-100 })
-				animateFade(form, 200, { start:1, end:0, next:() => {
+				_animateVertical(form, 250, { start:0, end:-100 })
+				_animateFade(form, 200, { start:1, end:0, next:() => {
 					form.style.visibility = 'hidden'
 				} })
 				
 				setTimeout(() => {
-					animateFade(background, 200, { start:1, end:0, next:() => {
+					_animateFade(background, 200, { start:1, end:0, next:() => {
 						background.style.visibility = 'hidden'	
 					} })
 				},100)
@@ -464,7 +518,7 @@ function UserInForm(config) {
 			form.style.opacity = 0
 		}
 	}
-	// 5.3.
+	// 6.3.
 	this.swithForm = mode => () => {
 		const loginTitleEl = document.getElementById('userin-login-title')
 		const loginFormEl = document.getElementById('userin-login-form')
@@ -489,27 +543,33 @@ function UserInForm(config) {
 		signupFooterEl.classList[action1]('userin-signup-footer-show')
 	}
 
-	// 6. Attach functionalities to certain component's triggers:
-	// 		6.1. Hide the form when the close button is clicked or when the user clicks outside of the modal.
-	// 		6.2. Show or hide the modal when the modal is loaded for the fist time.
-	// 		6.3. Show error messages located in the query string (error_msg and error_code) if there are any. 
-	// 		6.4. Switch between login and signup form
+	// 7. Attach functionalities to certain component's triggers:
+	// 		7.1. Hide the form when the close button is clicked or when the user clicks outside of the modal.
+	// 		7.2. Show or hide the modal when the modal is loaded for the fist time.
+	// 		7.3. Show error messages located in the query string (error_msg and error_code) if there are any. 
+	// 		7.4. Switch between login and signup form
 	const _this = this
-	// 6.1.
+	// 7.1.
 	const closeButton = document.querySelectorAll(`#${closeFormButtonId} svg`)[0]
 	const modalBackground = document.getElementById(darkBackgroundId)
 	const closingDOMs = [closeButton, modalBackground]
 	closingDOMs.forEach(d => { if (d) d.addEventListener('click', function() { _this.hide() }) })
-	// 6.2.
+	// 7.2.
 	if (formVisible)
 		this.show()
 	else
 		this.hide()
-	// 6.3. 
-	showErrorMsg()
-	// 6.4. 
+	// 7.3. 
+	_showErrorMsg()
+	// 7.4. 
 	document.getElementById('userin-switch-to-login').addEventListener('click', _this.swithForm('login'))
 	document.getElementById('userin-switch-to-signup').addEventListener('click', _this.swithForm('signup'))
+
+	// 8. Pre-populate inputs if some have been defined in the query string
+	_setInput('#usr-pwd-reg-form input[name="user.firstName"]', firstName)
+	_setInput('#usr-pwd-reg-form input[name="user.lastName"]', lastName)
+	_setInput('#usr-pwd-reg-form input[name="user.email"]', email)
+	_setInput('#usr-pwd-form input[name="user.email"]', email)
 
 	return this 
 }

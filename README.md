@@ -73,8 +73,8 @@ var loginForm = new UserInForm({
 	tagline: "Killer App",
 	blurb: "The adventure begins now",
 	usernamePassword: 'http://localhost:3000/default/oauth2',
-	facebookOAuth2: 'http://localhost:3000/facebook/oauth2',
-	googleOAuth2: 'http://localhost:3000/google/oauth2',
+	facebook: 'http://localhost:3000/facebook/oauth2',
+	google: 'http://localhost:3000/google/oauth2',
 	terms: 'https://termsfeed.com/blog/saas-terms-use-privacy-policy/', 
 	privacyPolicy: 'https://privacypolicies.com/blog/privacy-policy-saas/', 
 	forgotPassword: 'https://neap.co', 
@@ -96,8 +96,8 @@ __*Parameters*__
 | `tagline` 			| OPTIONAL	| String	| Tagline that appears at the top of the form.									|
 | `blurb` 				| OPTIONAL	| String	| Blurb that appears at the top of the form.									|
 | `usernamePassword` 	| REQUIRED	| String	| URL of your UserIn auth endpoint (e.g., http://localhost:3000/default/oauth2) |
-| `facebookOAuth2` 		| OPTIONAL	| String	| URL of your UserIn OAuth endpoint for Facebook (e.g., http://localhost:3000/facebook/oauth2) 	|
-| `googleOAuth2` 		| OPTIONAL	| String	| URL of your UserIn OAuth endpoint for Google (e.g., http://localhost:3000/google/oauth2) 	|
+| `facebook` 		| OPTIONAL	| String	| URL of your UserIn OAuth endpoint for Facebook (e.g., http://localhost:3000/facebook/oauth2) 	|
+| `google` 		| OPTIONAL	| String	| URL of your UserIn OAuth endpoint for Google (e.g., http://localhost:3000/google/oauth2) 	|
 | `terms` 				| OPTIONAL	| String	| URL to your terms and conditions web page. 									|
 | `privacyPolicy` 		| OPTIONAL	| String	| URL to your privacy policy web page. 											|
 | `forgotPassword` 		| OPTIONAL	| String	| URL to your forgot password web page. 										|
@@ -109,8 +109,8 @@ __*Parameters*__
 > NOTE: The order in which the Identity Providers appear in the form can be modified by changing the order of their definitions. In the example above, putting Google before Facebook cna be done as follow:
 > 	```js
 >	{
->		googleOAuth2: 'http://localhost:3000/google/oauth2',
->		facebookOAuth2: 'http://localhost:3000/facebook/oauth2',
+>		google: 'http://localhost:3000/google/oauth2',
+>		facebook: 'http://localhost:3000/facebook/oauth2',
 >	}
 >	```
 
@@ -136,8 +136,8 @@ This example is very similar to the one above, but instead of using a static for
 			tagline: "Killer App",
 			blurb: "The adventure begins now",
 			usernamePassword: 'http://localhost:3000/default/oauth2',
-			facebookOAuth2: 'http://localhost:3000/facebook/oauth2',
-			googleOAuth2: 'http://localhost:3000/google/oauth2',
+			facebook: 'http://localhost:3000/facebook/oauth2',
+			google: 'http://localhost:3000/google/oauth2',
 			terms: 'https://termsfeed.com/blog/saas-terms-use-privacy-policy/', 
 			privacyPolicy: 'https://privacypolicies.com/blog/privacy-policy-saas/', 
 			forgotPassword: 'https://neap.co', 
@@ -213,8 +213,8 @@ blurb: {
 | `logo` 				| OPTIONAL	| String	| URL of the logo that appears at the top of the form.							|
 | `tagline` 			| OPTIONAL	| String	| Tagline that appears at the top of the form.									|
 | `blurb` 				| OPTIONAL	| String	| Blurb that appears at the top of the form.									|
-| `facebookOAuth2` 		| OPTIONAL	| String	| URL of your UserIn OAuth endpoint for Facebook (e.g., http://localhost:3000/facebook/oauth2) 	|
-| `googleOAuth2` 		| OPTIONAL	| String	| URL of your UserIn OAuth endpoint for Google (e.g., http://localhost:3000/google/oauth2) 	|
+| `facebook` 		| OPTIONAL	| String	| URL of your UserIn OAuth endpoint for Facebook (e.g., http://localhost:3000/facebook/oauth2) 	|
+| `google` 		| OPTIONAL	| String	| URL of your UserIn OAuth endpoint for Google (e.g., http://localhost:3000/google/oauth2) 	|
 | `terms` 				| OPTIONAL	| String	| URL to your terms and conditions web page. 									|
 | `privacyPolicy` 		| OPTIONAL	| String	| URL to your privacy policy web page. 											|
 | `forgotPassword` 		| OPTIONAL	| String	| URL to your forgot password web page. 										|
@@ -235,11 +235,11 @@ Once configured in _UserIn_, each IdP should have an entry point similar to `htt
 new UserInForm({
 	// other configs...
 	usernamePassword: 'https://your-hosted-userin-domain/default/oauth2',
-	facebookOAuth2: 'https://your-hosted-userin-domain/facebook/oauth2',
-	googleOAuth2: 'https://your-hosted-userin-domain/google/oauth2',
-	linkedInOAuth2: 'https://your-hosted-userin-domain/linkedin/oauth2',
-	gitHubOAuth2: 'https://your-hosted-userin-domain/github/oauth2',
-	twitterOAuth2: 'https://your-hosted-userin-domain/twitter/oauth2'
+	facebook: 'https://your-hosted-userin-domain/facebook/oauth2',
+	google: 'https://your-hosted-userin-domain/google/oauth2',
+	linkedin: 'https://your-hosted-userin-domain/linkedin/oauth2',
+	github: 'https://your-hosted-userin-domain/github/oauth2',
+	twitter: 'https://your-hosted-userin-domain/twitter/oauth2'
 })
 ```
 
@@ -263,11 +263,11 @@ Simply change the input order as follow:
 new UserInForm({
 	// other configs...
 	usernamePassword: 'https://your-hosted-userin-domain/default/oauth2',
-	twitterOAuth2: 'https://your-hosted-userin-domain/twitter/oauth2',
-	gitHubOAuth2: 'https://your-hosted-userin-domain/github/oauth2',
-	linkedInOAuth2: 'https://your-hosted-userin-domain/linkedin/oauth2',
-	googleOAuth2: 'https://your-hosted-userin-domain/google/oauth2',
-	facebookOAuth2: 'https://your-hosted-userin-domain/facebook/oauth2'
+	twitter: 'https://your-hosted-userin-domain/twitter/oauth2',
+	github: 'https://your-hosted-userin-domain/github/oauth2',
+	linkedin: 'https://your-hosted-userin-domain/linkedin/oauth2',
+	google: 'https://your-hosted-userin-domain/google/oauth2',
+	facebook: 'https://your-hosted-userin-domain/facebook/oauth2'
 })
 ```
 # Customizing This Project To Your Own Needs
