@@ -65,8 +65,8 @@ const _createComponent = config => {
 		const [onErrorLoginUri, onErrorSignupUri] = _getLoginSignupURIs(onError)
 		
 		return [
-			u => `${u}/${encodeURIComponent(onSuccessLoginUri)}/${encodeURIComponent(onErrorLoginUri)}`,
-			u => `${u}/${encodeURIComponent(onSuccessSignupUri)}/${encodeURIComponent(onErrorSignupUri)}`
+			u => `${u}/${onSuccessLoginUri}/${onErrorLoginUri}`,
+			u => `${u}/${onSuccessSignupUri}/${onErrorSignupUri}`
 		]
 	})()
 
