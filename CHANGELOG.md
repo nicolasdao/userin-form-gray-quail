@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.0.9"></a>
+## [0.0.9](https://github.com/nicolasdao/userin-form-gray-quail/compare/v0.0.8...v0.0.9) (2019-04-18)
+
+
+### Features
+
+* Add support for pre-filling form using query parameters + switching from login to signup also using query parameter + configuring different redirect URIs for the login or signup cases ([6114186](https://github.com/nicolasdao/userin-form-gray-quail/commit/6114186))
+
+
+
 <a name="0.0.8"></a>
 ## [0.0.8](https://github.com/nicolasdao/userin-form-gray-quail/compare/v0.0.7...v0.0.8) (2019-04-17)
 
