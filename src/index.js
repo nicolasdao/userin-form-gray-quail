@@ -282,7 +282,7 @@ const _getLoginSignupURIs = u => {
 
 	const uType = typeof(u)
 	if (uType == 'string')
-		return [encodeURIComponent(uType), encodeURIComponent(uType)]
+		return [encodeURIComponent(u), encodeURIComponent(u)]
 	
 	if (uType != 'object')
 		throw new Error('Wrong argument exception. \'u\' must either be a string or an object.')
