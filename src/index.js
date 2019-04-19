@@ -93,7 +93,7 @@ const _createComponent = config => {
 			const k = key.toLowerCase().trim()
 			if (k == 'facebook') 
 				buttons.push(`
-				<form action="${formatSignupOAuth2Url(config[key])}" class="userin-form-button" target="_top">
+				<form action="${formatSignupOAuth2Url(config[key])}" class="userin-form-button userin-form-id" target="_top">
 					<button class="userin-idp-button userin-facebook-button userin-social-button">
 						<div class="userin-social-media-logo-container">
 							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 216 216" class="userin-social-media-logo" color="#ffffff">
@@ -107,7 +107,7 @@ const _createComponent = config => {
 				</form>`)
 			else if (k == 'google')
 				buttons.push(`
-				<form action="${formatSignupOAuth2Url(config[key])}" class="userin-form-button" target="_top">
+				<form action="${formatSignupOAuth2Url(config[key])}" class="userin-form-button userin-form-id" target="_top">
 					<button class="userin-idp-button userin-google-button userin-social-button">
 						<div class="userin-social-media-logo-container">
 							<span class="userin-social-media-logo-background">
@@ -128,7 +128,7 @@ const _createComponent = config => {
 				</form>`)
 			else if (k == 'linkedin')
 				buttons.push(`
-				<form action="${formatSignupOAuth2Url(config[key])}" class="userin-form-button" target="_top">
+				<form action="${formatSignupOAuth2Url(config[key])}" class="userin-form-button userin-form-id" target="_top">
 					<button class="userin-idp-button userin-linkedin-button userin-social-button">
 						<div class="userin-social-media-logo-container">
 							<span class="userin-social-media-logo-background">
@@ -145,7 +145,7 @@ const _createComponent = config => {
 				</form>`)
 			else if (k == 'github')
 				buttons.push(`
-				<form action="${formatSignupOAuth2Url(config[key])}" class="userin-form-button" target="_top">
+				<form action="${formatSignupOAuth2Url(config[key])}" class="userin-form-button userin-form-id" target="_top">
 					<button class="userin-idp-button userin-github-button userin-social-button">
 						<div class="userin-social-media-logo-container">
 							<span class="userin-social-media-logo-background">
@@ -165,7 +165,7 @@ const _createComponent = config => {
 				</form>`)
 			else if (k == 'twitter')
 				buttons.push(`
-				<form action="${formatSignupOAuth2Url(config[key])}" class="userin-form-button" target="_top">
+				<form action="${formatSignupOAuth2Url(config[key])}" class="userin-form-button userin-form-id" target="_top">
 					<button class="userin-idp-button userin-twitter-button userin-social-button">
 						<div class="userin-social-media-logo-container">
 							<span class="userin-social-media-logo-background">
@@ -199,6 +199,10 @@ const _createComponent = config => {
 	// 4. Glue all HTML into a single Modal
 	return `
 	<div id="${formModalId}"  class="userin-form-box ${modalShadowClass}">
+		<div class="userin-linear-progress-material" style="visibility:hidden">
+			<div class="userin-bar userin-bar1"></div>
+			<div class="userin-bar userin-bar2"></div>
+		</div>
 		<div id="${closeFormButtonId}"" class="userin-close-button">
 			${showCloseButton ? 
 		`<svg width="25px" height="25px" viewBox="0 0 615 615" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -223,7 +227,7 @@ const _createComponent = config => {
 				${signupBlurb ? `<div class="userin-blurb">${signupBlurb}</div>` : ''}
 			</div>
 			<div id="userin-login-form" class="${loginFormClass}">
-				<form id="usr-pwd-form" class="userin-email-form" target="_top" action="${formatLoginOAuth2Url(usernamePassword)}" method="post" enctype="application/json">
+				<form id="usr-pwd-form" class="userin-email-form userin-form-id" target="_top" action="${formatLoginOAuth2Url(usernamePassword)}" method="post" enctype="application/json">
 					<input type="email" name="user.email" placeholder="Email" class="userin-input-form" required>
 					<input type="password" name="user.password" placeholder="Password" class="userin-input-form" required>
 					<input type="submit" value="Continue" class="userin-login-button">
@@ -231,7 +235,7 @@ const _createComponent = config => {
 				</form>	
 			</div>
 			<div id="userin-signup-form" class="${signupFormClass}">
-				<form id="usr-pwd-reg-form" class="userin-email-form" target="_top" action="${formatSignupOAuth2Url(usernamePassword)}" method="post" enctype="application/json">
+				<form id="usr-pwd-reg-form" class="userin-email-form userin-form-id" target="_top" action="${formatSignupOAuth2Url(usernamePassword)}" method="post" enctype="application/json">
 					<input type="text" name="user.firstName" placeholder="First name" class="userin-input-form" required>
 					<input type="text" name="user.lastName" placeholder="Last name" class="userin-input-form" required>
 					<input id="reg-email" type="email" name="user.email" placeholder="Email" class="userin-input-form" required>
@@ -406,14 +410,15 @@ const _setInput = (selector, value) => {
  */
 function UserInForm(config) {
 	// 1. Extract query string params
+	const redirectUrl = getQueryString('redirect_url')
 	const screenMode = getQueryString('screen') // either null, 'login' or 'signup'
 	const firstName = getQueryString('firstName') || getQueryString('firstname')
 	const lastName = getQueryString('lastName') || getQueryString('lastname')
 	const email = getQueryString('email') 
 
-	// 2. Extract, validate and format configuration settings
+	// 2. Extract, validate and format settings
 	config = config || {}
-
+	// 2.1. Initialize variables
 	const formId = `_${Date.now()}`
 	const formModalId = `${formId}-userin-login`
 	const closeFormButtonId = `${formId}-userin-close-form-button`
@@ -421,8 +426,16 @@ function UserInForm(config) {
 	config.ids = { formModalId, closeFormButtonId }
 
 	let { init, modal } = config
-	if (screenMode == 'login' || screenMode == 'signup') // overides the configured init.mode
+	// 2.2. Overides some configuration based on the query parameters
+	// 2.2.1. Overides screen mode
+	if (screenMode == 'login' || screenMode == 'signup') 
 		init.mode = screenMode
+	// 2.2.2. Overides on success redirect URI
+	if (redirectUrl) {
+		config.redirectUrls = config.redirectUrls || {}
+		config.redirectUrls.onSuccess = redirectUrl
+	}
+	// 2.3. Add default values
 	let { visible:formVisible=true } = init || {}
 	const { animate: animateModal } = modal || {}
 	const modalOn = modal ? true : false
@@ -570,6 +583,13 @@ function UserInForm(config) {
 	_setInput('#usr-pwd-reg-form input[name="user.lastName"]', lastName)
 	_setInput('#usr-pwd-reg-form input[name="user.email"]', email)
 	_setInput('#usr-pwd-form input[name="user.email"]', email)
+
+	// 9. Attach click events on buttons to show process bar
+	const forms = document.querySelectorAll('form.userin-form-id')
+	const processBar = document.querySelector(`#${formModalId} .userin-linear-progress-material`)
+
+	for(let i=0;i<forms.length;i++) 
+		forms[i].addEventListener('onSubmit', () => processBar.setAttribute('style','visibility:visible'))
 
 	return this 
 }

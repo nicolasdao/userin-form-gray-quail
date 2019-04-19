@@ -20,6 +20,7 @@ This project uses vanilla JS and CSS. There are no dependencies, except for deve
 >	- [Other Configs](#other-configs)
 >	- [Full Parameters List](#full-parameters-list)
 > * [How To](#how-to)
+>	- [How To Control The Form With Query Parameters?](#how-to-control-the-form-with-query-parameters)
 >	- [How To Pre-Fill Form?](#how-to-pre-fill-form)
 >	- [How To Keep The Form Filled With The User Info After A Failed Login or Signup?](#how-to-keep-the-form-filled-with-the-user-info-after-a-failed-login-or-signup)
 > * [List Of Supported Identity Providers](#list-of-supported-identity-providers)
@@ -235,6 +236,26 @@ blurb: {
 | `init.visible` 		| OPTIONAL	| Boolean	| Default is true. This configuration is only when the `modal` property is truthy. When true, the form appears automatically after it is loaded. When set to false, the form when it has loaded. It must be opened explicitely using the `show()` api as demonstrated at the bottom of the example above. |
 
 # How To
+## How To Control The Form With Query Parameters?
+
+This __*UserIn Form*__ supports configuration through URL query parameters. For example:
+
+[http://localhost:8080/dev?screen=login&redirect_url=https%3A%2F%2Fexample.com](http://localhost:8080/dev?screen=login&redirect_url=https%3A%2F%2Fexample.com)
+
+This URI opens the form `login` form instead of the default `signup`. Upon successfull login, the redirect url is overidden by [https://example.com](https://example.com). 
+
+It is also possible to [pre-fill the form as explained in the next section](#how-to-pre-fill-form). 
+
+The full supported list of params is:
+
+|Parameter 		| Description |
+|:--------------|:------------|
+| `screen` 		| Determines which form needs to be displayed. Possible values are: `login`, `signup` |
+| `redirect_url`| Determines where to redirect upon successfull authentication. |
+| `firstName` 	| Pre-fills the signup's first name field |
+| `lastName` 	| Pre-fills the signup's last name field |
+| `email` 		| Pre-fills both the signup and login email field |
+
 ## How To Pre-Fill Form?
 
 Pre-filling the __*UserIn Form*__ is possible using query parameters. The following example shows an exhaustive case of all the parameters that can be used:
@@ -248,7 +269,7 @@ Where:
 | `screen` 		| Determines which form needs to be displayed. Possible values are: `login`, `signup` |
 | `firstName` 	| Pre-fills the signup's first name field |
 | `lastName` 	| Pre-fills the signup's last name field |
-| `emailName` 	| Pre-fills both the signup and login email field |
+| `email` 		| Pre-fills both the signup and login email field |
 
 This feature is what allows the next trick: [How To Keep The Form Filled With The User Info After A Failed Login or Signup?](#how-to-keep-the-form-filled-with-the-user-info-after-a-failed-login-or-signup).
 
