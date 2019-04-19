@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.0.13"></a>
+## [0.0.13](https://github.com/nicolasdao/userin-form-gray-quail/compare/v0.0.12...v0.0.13) (2019-04-19)
+
+
+### Features
+
+* Add support for redirect_url in the query parameter + add support for processing bar ([c436ce7](https://github.com/nicolasdao/userin-form-gray-quail/commit/c436ce7))
+
+
+
 <a name="0.0.12"></a>
 ## [0.0.12](https://github.com/nicolasdao/userin-form-gray-quail/compare/v0.0.11...v0.0.12) (2019-04-19)
 
