@@ -589,7 +589,7 @@ function UserInForm(config) {
 	const processBar = document.querySelector(`#${formModalId} .userin-linear-progress-material`)
 
 	for(let i=0;i<forms.length;i++) 
-		forms[i].addEventListener('onSubmit', () => processBar.setAttribute('style','visibility:visible'))
+		forms[i].addEventListener('submit', () => processBar.setAttribute('style','visibility:visible'))
 
 	return this 
 }
