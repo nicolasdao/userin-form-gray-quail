@@ -1,6 +1,6 @@
 {
   "name": "userin-form-gray-quail",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "Configurable JS form widget that uses the UserIn middleware to login to Apps using popular Identity Providers such as Facebook, Google, LinkedIn, GitHub, ...",
   "main": "dist/index.min.js",
   "unpkg": "dist/index.min.js",
