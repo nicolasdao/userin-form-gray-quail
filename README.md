@@ -43,7 +43,7 @@ Add the CSS and the JS into your web page as follow:
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/userin-form-gray-quail/dist/style.min.css">
 </head>
 <body>
-	<div id="userin-form-modal"></div>
+	<div id="userin-form-modal" style="justify-content: center;display: flex;align-items: center;height: 80vh;"></div>
 	<!-- Some HTML here... -->
 	<script src="https://cdn.jsdelivr.net/npm/userin-form-gray-quail"></script>
 	<script type="text/javascript">
@@ -131,7 +131,7 @@ This example is very similar to the one above, but instead of using a static for
 </head>
 <body>
 	<button id="login">Login</button>
-	<div id="main"></div>
+	<div id="main" style="justify-content: center;display: flex;align-items: center;height: 80vh;"></div>
 	<script src="https://cdn.jsdelivr.net/npm/userin-form-gray-quail"></script>
 	<script type="text/javascript">
 		var loginForm = new UserInForm({
