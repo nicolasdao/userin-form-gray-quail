@@ -340,6 +340,7 @@ const _animateVertical = (el, time, options) => _transitionFn(
 
 /**
  * Extracts a specific parameter from the query string. That parameter is also decoded.
+ * 
  * @param  {String} field Parameter name
  * @param  {String} url   
  * @return {String}       Decoded parameter's value
